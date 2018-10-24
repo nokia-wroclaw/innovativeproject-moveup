@@ -1,10 +1,8 @@
-/*import React from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import { register } from './UserFunctions'
-
 
 const styles = theme => ({
     container: {
@@ -12,9 +10,9 @@ const styles = theme => ({
         flexWrap: 'wrap',
     },
     textField: {
-        marginLeft: theme.spacing.unit,
-        marginRight: theme.spacing.unit,
-        width: 200,
+        marginLeft: "42%",
+        marginRight: "42%",
+        width: "16%",
     },
     dense: {
         marginTop: 19,
@@ -23,14 +21,18 @@ const styles = theme => ({
         width: 200,
     },
     button: {
-        margin: theme.spacing.unit,
+        margin: 20,
+        marginLeft: "42%",
+        marginRight: "42%",
+        width: "16%",
     },
     input: {
         display: 'none',
     },
 });
 
-class TextFields extends React.Component  {
+
+class TextFields extends React.Component{
     state = {
         first_name: '',
         last_name: '',
@@ -44,29 +46,13 @@ class TextFields extends React.Component  {
         });
     };
 
-    getRegister = (e) => {
-        e.preventDefault();
-        const user = {
-            first_name: e.target.elements.first_name.value,
-            last_name: e.target.elements.last_name.value,
-            email: e.target.elements.email.value,
-            password: e.target.elements.password.value
-        }
-        console.log(user);
 
-        if(user) {
-            register(user)
-                .then((res) => {
-                    //...
-                })
-        }
-    };
 
     render() {
         const { classes } = this.props;
 
         return (
-            <form className={classes.container} onSubmit={this.getRegister} noValidate autoComplete="off">
+            <form className={classes.container} onSubmit={this.props.getRegister} noValidate autoComplete="off">
                 <TextField
                     id="first_name"
                     label="First Name"
@@ -99,42 +85,16 @@ class TextFields extends React.Component  {
                     onChange={this.handleChange('password')}
                     margin="normal"
                 />
-                <Button variant="outlined"  className={classes.button}>
+                <Button variant="contained" color="primary" type={"submit"} className={classes.button}>
                     Send
                 </Button>
             </form>
         );
     }
 }
+
 TextFields.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(TextFields);
-
-
-*/
-
-
-
-
-
-
-
-
-
-import React from 'react'
-
-const RegistryForm = (props) => {
-    return (
-        <form onSubmit={props.getRegister}>
-            <input style={{margin:"20 px auto", display:"block"}} type={"text"} name={"first_name"}/>
-            <input style={{margin:"20 px auto", display:"block"}} type={"text"} name={"last_name"}/>
-            <input style={{margin:"20 px auto", display:"block"}} type={"text"} name={"email"}/>
-            <input style={{margin:"20 px auto", display:"block"}} type={"text"} name={"password"}/>
-            <button>No dawaj</button>
-        </form>
-    );
-}
-
-export default RegistryForm;
