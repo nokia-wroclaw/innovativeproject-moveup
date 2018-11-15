@@ -24,6 +24,15 @@ module.exports = db.sequelize.define(
         created: {
             type: Sequelize.DATE,
             defaultValue: Sequelize.NOW
+        },
+        age: {
+            type: Sequelize.INTEGER
+        },
+        sex: {
+            type: Sequelize.STRING
+        },
+        number_phone: {
+            type: Sequelize.STRING
         }
     },
     {

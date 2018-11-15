@@ -1,0 +1,30 @@
+.button2 {
+    top: 60px;
+    left: 40%;
+    width: 21%;
+}
+
+.textField2 {
+    left: 42%;
+    top: 30px;
+
+}
+
+.textCenter2 {
+    font-family:  'Hoefler Text', Georgia, 'Times New Roman', serif;
+    font-weight: normal;
+    font-size: 1.75em;
+    letter-spacing: .2em;
+    line-height: 1.1em;
+    margin: 10px;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+
+.iron {
+    height: 80vmin;
+    margin-left: 200px;
+    margin-top: 50px;
+
+}

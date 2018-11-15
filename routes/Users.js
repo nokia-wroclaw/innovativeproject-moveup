@@ -16,15 +16,17 @@ users.post('/register', (req, res) => {
         last_name: req.body.last_name,
         email: req.body.email,
         password: req.body.password,
-        created: today
+        created: today,
+        age: req.body.age,
+        sex: req.body.sex,
+        number_phone: req.body.number_phone
     };
 
     User.findOne({
         where: {
             email: req.body.email
         }
-    })
-        .then(user => {
+    }).then(user => {
             if (!user) {
                 bcrypt.hash(req.body.password, 10, (err, hash) => {
                     userData.password = hash
@@ -37,11 +39,87 @@ users.post('/register', (req, res) => {
                         })
                 })
             } else {
-                res.json({ error: "User already exists" })
+
+                res.status(403).json({ error: "User already exists" })
             }
         })
         .catch(err => {
             res.send('error: ' + err)
         })
 });
+
+
+users.post('/login', (req, res) => {
+    User.findOne({
+        where: {
+            email: req.body.email
+        }
+    })
+        .then(user => {
+            if (user) {
+                if (bcrypt.compareSync(req.body.password, user.password)) {
+                    let token = jwt.sign(user.dataValues, process.env.SECRET_KEY, {
+                        expiresIn: 1440
+                    })
+                    res.send(token)
+                }
+            } else {
+                res.status(400).json({ error: 'User does not exist' })
+            }
+        })
+        .catch(err => {
+            res.status(400).json({ error: err })
+        })
+})
+
+users.post('/edit', (req, res) => {
+    const userData = {
+        first_name: req.body.first_name,
+        last_name: req.body.last_name,
+        email: req.body.email,
+        password: req.body.password,
+        age: req.body.age,
+        sex: req.body.sex,
+        number_phone: req.body.number_phone
+    };
+
+    User.findOne({
+        where: {
+            email: req.body.email
+        }
+    }).then(user => {
+        if (user) {
+            bcrypt.hash(req.body.password, 10, (err, hash) => {
+                if(user.password != hash || req.body.password != '' ){
+                    userData.password = hash
+                } else {
+                    userData.password = user.password
+                }
+
+                User.update(
+                    {password: userData.password},
+                    {where: {email: user.email}}
+                )
+
+            })
+            User.update(
+                {first_name: userData.first_name,
+                last_name: userData.last_name,
+                    //password: userData.password,
+                    age: userData.age,
+                    sex: userData.sex,
+                    number_phone: userData.number_phone
+                },
+                { where: {email: user.email}}
+            )
+            res.json({ status: user.email + ' edited' })
+        } else {
+            res.status(403).json({ error: "User already exists" })
+        }
+    })
+        .catch(err => {
+            res.send('error: ' + err)
+        })
+});
+
 module.exports = users;
