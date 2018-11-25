@@ -4,7 +4,7 @@ import { getEditProfile } from './UserFunctions'
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles';
-import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
+//import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from '@material-ui/Card';
 import './Profile.css';
 import iron from './ironman.jpg';
 
@@ -47,6 +47,10 @@ class Profile extends Component {
         })
     }
 
+
+
+
+
     componentDidMount () {
         const token = localStorage.usertoken;
         const decoded = jwt_decode(token);
@@ -60,7 +64,6 @@ class Profile extends Component {
             number_phone: decoded.number_phone
         })
     }
-
 
     render () {
         return (

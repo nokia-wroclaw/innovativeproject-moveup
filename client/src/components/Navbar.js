@@ -4,8 +4,8 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
-import FontIcon from 'material-ui/FontIcon';
-import {blue500, red500, greenA200} from 'material-ui/styles/colors';
+//import FontIcon from 'material-ui/FontIcon';
+//import {blue500, red500, greenA200} from 'material-ui/styles/colors';
 
 const iconStyles = {
     marginRight: 24,

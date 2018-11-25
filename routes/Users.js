@@ -58,13 +58,13 @@ users.post('/login', (req, res) => {
         .then(user => {
             if (user) {
                 if (bcrypt.compareSync(req.body.password, user.password)) {
-                    let token = jwt.sign(user.dataValues, process.env.SECRET_KEY, {
+                    let token = jwt.sign(User.id, process.env.SECRET_KEY, {
                         expiresIn: 1440
                     })
                     res.send(token)
                 }
             } else {
-                res.status(400).json({ error: 'User does not exist' })
+                res.status(404).json({ error: 'User does not exist' })
             }
         })
         .catch(err => {
@@ -72,7 +72,7 @@ users.post('/login', (req, res) => {
         })
 })
 
-users.post('/edit', (req, res) => {
+users.put('/edit', (req, res) => {
     const userData = {
         first_name: req.body.first_name,
         last_name: req.body.last_name,
