@@ -1,20 +1,12 @@
 import React, { Component } from 'react'
 import { Link, withRouter } from 'react-router-dom'
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
-//import FontIcon from 'material-ui/FontIcon';
-//import {blue500, red500, greenA200} from 'material-ui/styles/colors';
-
-const iconStyles = {
-    marginRight: 24,
-};
 
 class Navbar extends Component {
     logOut(e) {
         e.preventDefault()
         localStorage.removeItem('usertoken')
+        console.log("See ya")
         this.props.history.push(`/`)
     }
 
@@ -47,6 +39,11 @@ class Navbar extends Component {
                     <a href="" onClick={this.logOut.bind(this)} className="nav-link">
                         Logout
                     </a>
+                </li>
+                <li className="nav-item">
+                    <Link to="/createEvent" className="nav-link">
+                        Create event
+                    </Link>
                 </li>
             </ul>
             </AppBar>
@@ -82,5 +79,4 @@ class Navbar extends Component {
         )
     }
 }
-
 export default withRouter(Navbar)

@@ -53,14 +53,16 @@ users.post('/login', (req, res) => {
     User.findOne({
         where: {
             email: req.body.email
-        }
+        },
+        attributes: ['id','password']
     })
         .then(user => {
             if (user) {
                 if (bcrypt.compareSync(req.body.password, user.password)) {
-                    let token = jwt.sign(User.id, process.env.SECRET_KEY, {
+                    let token = jwt.sign(user.dataValues, process.env.SECRET_KEY, {
                         expiresIn: 1440
                     })
+                    //res.json(token + "           to jest id usera")
                     res.send(token)
                 }
             } else {
@@ -85,7 +87,7 @@ users.put('/edit', (req, res) => {
 
     User.findOne({
         where: {
-            email: req.body.email
+            id: req.body.id
         }
     }).then(user => {
         if (user) {
@@ -98,19 +100,18 @@ users.put('/edit', (req, res) => {
 
                 User.update(
                     {password: userData.password},
-                    {where: {email: user.email}}
+                    {where: {id: user.id}}
                 )
 
             })
             User.update(
                 {first_name: userData.first_name,
                 last_name: userData.last_name,
-                    //password: userData.password,
                     age: userData.age,
                     sex: userData.sex,
                     number_phone: userData.number_phone
                 },
-                { where: {email: user.email}}
+                { where: {id: user.id}}
             )
             res.json({ status: user.email + ' edited' })
         } else {
@@ -122,12 +123,12 @@ users.put('/edit', (req, res) => {
         })
 });
 
-users.get('/get', (req, res) => {
+users.put('/get', (req, res) => {
     User.findOne({
         where: {
             id: req.body.id
         },
-        attributes: ['first_name','last_name','email','age','sex','number_phone'] // TUUUTAJ OBCZAJ W CZWARTEK O CO CHODZI ??
+        attributes: ['first_name','last_name','email','age','sex','number_phone'] // TUUUTAJ OBCZAJ W CZWARTEK O CO CHODZI ?? zobacz na model event.js tam jest blad ;c
     }).then(user => {
         if (user) {
             res.send(user)
@@ -136,7 +137,7 @@ users.get('/get', (req, res) => {
         }
     })
         .catch(err => {
-            res.send('error: ' + err)
+            res.send('error: ' + err  +"           140 User.js")
         })
 });
 

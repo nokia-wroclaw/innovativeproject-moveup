@@ -1,10 +1,8 @@
 import React, { Component } from 'react'
 import jwt_decode from 'jwt-decode'
-import { getEditProfile } from './UserFunctions'
+import { getEditProfile, getDataProfile } from './UserFunctions'
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import { withStyles } from '@material-ui/core/styles';
-//import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from '@material-ui/Card';
 import './Profile.css';
 import iron from './ironman.jpg';
 
@@ -31,6 +29,7 @@ class Profile extends Component {
         e.preventDefault()
 
         const user = {
+            id: this.state.id,
             first_name: this.state.first_name,
             last_name: this.state.last_name,
             email: this.state.email,
@@ -41,28 +40,31 @@ class Profile extends Component {
         }
 
 
-
         getEditProfile(user).then(res => {
             this.props.history.push(`/profile`)
         })
     }
 
-
-
-
-
     componentDidMount () {
-        const token = localStorage.usertoken;
-        const decoded = jwt_decode(token);
-        this.setState({
-            first_name: decoded.first_name,
-            last_name: decoded.last_name,
-            email: decoded.email,
-            //password: decoded.password,
-            age: decoded.age,
-            sex: decoded.sex,
-            number_phone: decoded.number_phone
-        })
+        if (localStorage.usertoken) {
+            const token = localStorage.usertoken;
+            const decoded = jwt_decode(token);
+            getDataProfile(decoded).then(res => {
+                this.setState({
+                    id: decoded.id,
+                    first_name: res.first_name,
+                    last_name: res.last_name,
+                    email: res.email,
+                    password: res.password,
+                    age: res.age,
+                    sex: res.sex,
+                    number_phone: res.number_phone
+                })
+            })
+        }else {
+            console.log("error:  get into /profile without sign in  ")
+            this.props.history.push(`/`)
+        }
     }
 
     render () {

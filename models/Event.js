@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 const db = require('../basedata/basedata');
-const User = require("../models/User");
+//const User = require("../models/User");
 
 Event = db.sequelize.define(
     'event',
@@ -59,5 +59,5 @@ Event = db.sequelize.define(
         timestamps: false
     }
 )
-User.belongsTo(Event);
+//User.belongsTo(Event);
 module.exports = Event;
