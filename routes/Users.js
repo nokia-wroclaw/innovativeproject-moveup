@@ -122,4 +122,22 @@ users.put('/edit', (req, res) => {
         })
 });
 
+users.get('/get', (req, res) => {
+    User.findOne({
+        where: {
+            id: req.body.id
+        },
+        attributes: ['first_name','last_name','email','age','sex','number_phone'] // TUUUTAJ OBCZAJ W CZWARTEK O CO CHODZI ??
+    }).then(user => {
+        if (user) {
+            res.send(user)
+        } else {
+            res.status(403).json({ error: "something wrong in get data in routers/users.js 135" })
+        }
+    })
+        .catch(err => {
+            res.send('error: ' + err)
+        })
+});
+
 module.exports = users;

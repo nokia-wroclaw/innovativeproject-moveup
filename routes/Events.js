@@ -85,4 +85,22 @@ events.put('/editEvent', (req, res) => {
         })
 });
 
+events.get('/getEvent', (req, res) => {
+    Event.findOne({
+        where: {
+            name_event: req.body.name_event,
+            id_user: req.body.id_user
+        }
+    }).then(event => {
+        if (event) {
+            res.send(event)
+        } else {
+            res.status(403).json({ error: "event not exist" })
+        }
+    })
+        .catch(err => {
+            res.send('error: ' + err)
+        })
+});
+
 module.exports = events;
