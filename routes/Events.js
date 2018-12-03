@@ -85,7 +85,7 @@ events.put('/editEvent', (req, res) => {
         })
 });
 
-events.get('/getEvent', (req, res) => {
+events.put('/getEvent', (req, res) => {
     Event.findOne({
         where: {
             name_event: req.body.name_event,
@@ -96,6 +96,41 @@ events.get('/getEvent', (req, res) => {
             res.send(event)
         } else {
             res.status(403).json({ error: "event not exist" })
+        }
+    })
+        .catch(err => {
+            res.send('error: ' + err)
+        })
+});
+
+events.get('/getAllEvents', (req, res) => {
+    Event.findAll().then(events => {
+        if(events)
+        {
+            res.json(events);
+        }
+        else
+        {
+            res.status(403).json({error: "there are no one data in tabel events"})
+        }
+    })
+        .catch(err => {
+            res.send('error: ' + err)
+        })
+});
+events.get('/getAllUserEvents', (req, res) => {
+    Event.findAll({
+        where: {
+            id_user: req.body.id_user
+        }
+    }).then(events => {
+        if(events)
+        {
+            res.json(events);
+        }
+        else
+        {
+            res.status(403).json({error: "there are no one data in tabel events created by you"})
         }
     })
         .catch(err => {

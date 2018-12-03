@@ -36,7 +36,7 @@ Event = db.sequelize.define(
         },
         pref_age: {
             allowNull: true,
-            type: Sequelize.INTEGER
+            type: Sequelize.TEXT
         },
         pref_sex: {
             allowNull: true,
@@ -48,7 +48,7 @@ Event = db.sequelize.define(
         },
         repetition: {
             allowNull: true,
-            type: Sequelize.INTEGER
+            type: Sequelize.STRING
         },
         phone_organizer: {
             allowNull: true,

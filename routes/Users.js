@@ -91,17 +91,17 @@ users.put('/edit', (req, res) => {
         }
     }).then(user => {
         if (user) {
-            bcrypt.hash(req.body.password, 10, (err, hash) => {
-                if(user.password != hash || req.body.password != '' ){
-                    userData.password = hash
+            bcrypt.hash(userData.password, 10, (err, hash) => {
+                if(user.password != hash && userData.password != '' && userData.password != undefined ){
+                    User.update(
+                      {password: hash},
+                        {where: {id: user.id}}
+                    )
                 } else {
                     userData.password = user.password
                 }
 
-                User.update(
-                    {password: userData.password},
-                    {where: {id: user.id}}
-                )
+
 
             })
             User.update(

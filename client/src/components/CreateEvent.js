@@ -14,11 +14,11 @@ class CreateEvent extends Component {
             type_sport: '',
             date: '',
             time: '',
-            pref_age: undefined,
-            pref_sex: undefined,
-            advanced: undefined,
-            repetition: undefined,
-            phone_organizer: undefined
+            pref_age: '',
+            pref_sex: '',
+            advanced: '',
+            repetition: '',
+            phone_organizer: ''
         }
 
         this.onChange = this.onChange.bind(this)
