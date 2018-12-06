@@ -1,0 +1,12 @@
+.AppBarContainer {
+    display: flex;
+    justifyContent: center;
+    alignItems: flex-end;
+}
+
+.itemNav
+{
+    order: revert;
+    align-self: center;
+
+}

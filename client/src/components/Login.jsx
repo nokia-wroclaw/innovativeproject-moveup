@@ -44,31 +44,31 @@ class Login extends Component {
                             <h1 className="textCenter2">Please sign in</h1>
                             <div className="form-group">
                                 <TextField type="email"
-                                         variant="outlined"
-                                        className="textField2"
-                                       name="email"
-                                       placeholder="Enter Email"
-                                       value={this.state.email}
-                                       onChange={this.onChange}
-                                        label="EMAIL"
-                                        margin="normal"
+                                           variant="outlined"
+                                           className="textField2"
+                                           name="email"
+                                           placeholder="Enter Email"
+                                           value={this.state.email}
+                                           onChange={this.onChange}
+                                           label="EMAIL"
+                                           margin="normal"
                                 />
                             </div>
                             <div className="form-group">
                                 <TextField type="password"
-                                        variant="outlined"
-                                        className="textField2"
-                                       name="password"
-                                       placeholder="Enter Password"
-                                       value={this.state.password}
-                                       onChange={this.onChange}
-                                        label="PASSWORD"
-                                        margin="normal"
+                                           variant="outlined"
+                                           className="textField2"
+                                           name="password"
+                                           placeholder="Enter Password"
+                                           value={this.state.password}
+                                           onChange={this.onChange}
+                                           label="PASSWORD"
+                                           margin="normal"
                                 />
                             </div>
-                                <Button className="button2" type="submit" variant="contained" color="primary" >
-                            Sign in
-                                </Button>
+                            <Button className="button2" type="submit" variant="contained" color="primary" >
+                                Sign in
+                            </Button>
                         </form>
                     </div>
                 </div>
