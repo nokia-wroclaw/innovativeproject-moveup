@@ -7,6 +7,7 @@ import Login from './components/Login'
 import Register from './components/Register'
 import Profile from './components/Profile'
 import CreateEvent from './components/CreateEvent'
+import AllEvents from './components/AllEvents'
 
 class App extends Component {
     render () {
@@ -20,6 +21,7 @@ class App extends Component {
                         <Route exact path="/login" component={Login} />
                         <Route exact path="/profile" component={Profile} />
                         <Route exact path="/createEvent" component={CreateEvent} />
+                        <Route exact path="/allEvents" component={AllEvents} />
                     </div>
                 </div>
             </Router>

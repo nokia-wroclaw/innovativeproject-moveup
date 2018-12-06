@@ -1,4 +1,3 @@
-import {Component} from "react";
 import AppBar from "@material-ui/core/AppBar/AppBar";
 import {Link} from "react-router-dom";
 import React from "react";

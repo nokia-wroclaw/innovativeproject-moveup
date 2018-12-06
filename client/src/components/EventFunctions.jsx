@@ -19,3 +19,14 @@ export const registerEvent = newEvent => {
             console.log("error  " + err)
         })
 }
+
+export const AllEvent = allEvents => {
+    return axios
+        .get('events/getAllEvents', {
+        }).then(res => {
+            console.log("gotcha json with all events")
+            return res.data
+        }).catch(err => {
+            console.log("error  " + err)
+        })
+}

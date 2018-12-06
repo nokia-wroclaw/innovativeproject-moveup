@@ -4,8 +4,7 @@ import AppBar from '@material-ui/core/AppBar';
 import './Navbar.css';
 import {loginRegLink} from './LoginRegLink'
 import SvgIcon from '@material-ui/core/SvgIcon';
-import { withStyles } from '@material-ui/core/styles';
-import {userLink} from "./UserLink";
+
 
 
 
@@ -44,13 +43,18 @@ class Navbar extends Component {
                             </Link>
                         </div>
                         <div>
-                            <a href="" onClick={this.logOut.bind(this)} className="nav-link">
+                            <a href="#" onClick={this.logOut.bind(this)} className="nav-link">
                                 Logout
                             </a>
                         </div>
                         <div>
                             <Link to="/createEvent" className="itemNav">
                                 Create event
+                            </Link>
+                        </div>
+                        <div>
+                            <Link to="/allEvents" className="itemNav">
+                                all events
                             </Link>
                         </div>
                     </ul>
