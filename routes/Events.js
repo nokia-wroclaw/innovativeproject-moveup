@@ -56,7 +56,7 @@ events.put('/editEvent', (req, res) => {
 
     Event.findOne({
         where: {
-            name_event: req.body.name_event
+            id_event: req.body.id_event
         }
     }).then(event => {
         if (event) {
@@ -73,7 +73,7 @@ events.put('/editEvent', (req, res) => {
                     repetition: eventData.repetition,
                     phone_organizer: eventData.phone_organizer,
                 },
-                { where: {name_event: event.name_event}}
+                { where: {id_event: event.id_event}}
             )
             res.json({ status: event.name_event + ' edited' })
         } else {
@@ -88,8 +88,7 @@ events.put('/editEvent', (req, res) => {
 events.put('/getEvent', (req, res) => {
     Event.findOne({
         where: {
-            name_event: req.body.name_event,
-            id_user: req.body.id_user
+            id_event: req.body.id_event
         }
     }).then(event => {
         if (event) {
@@ -118,7 +117,7 @@ events.get('/getAllEvents', (req, res) => {
             res.send('error: ' + err)
         })
 });
-events.get('/getAllUserEvents', (req, res) => {
+events.put('/getAllUserEvents', (req, res) => {
     Event.findAll({
         where: {
             id_user: req.body.id_user

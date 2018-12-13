@@ -10,10 +10,10 @@ Event = db.sequelize.define(
             autoIncrement: true
         },
         id_user: {
-            type: Sequelize.INTEGER,
-            foreignKey: true,
-        },
-        name_event: {
+                type: Sequelize.INTEGER,
+                foreignKey: true,
+            },
+            name_event: {
             allowNull: false,
             type: Sequelize.STRING
         },

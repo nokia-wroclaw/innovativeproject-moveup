@@ -1,10 +1,15 @@
 import React, { Component } from 'react'
-//import { AllEvent } from './EventFunctions'
-//import Button from '@material-ui/core/Button';
-//import TextField from '@material-ui/core/TextField';
 
  class AllEvents extends Component {
-    state = { events : [] }
+     constructor() {
+         super();
+         this.state = {
+             searchNameEvent: '',
+             searchStartPoint: '',
+             searchTypeOfSport: '',
+             events: []
+         }
+     }
 
     componentDidMount(){
         fetch('/events/getAllEvents')
@@ -12,15 +17,51 @@ import React, { Component } from 'react'
             .then(events => this.setState({events}));
     }
 
+     updateSearchNameEvent(event) {
+         this.setState({searchNameEvent: event.target.value.substr(0,20)})
+     }
+     updateSearchStartPoint(event) {
+         this.setState({searchStartPoint: event.target.value.substr(0,20)})
+     }
+     updateSearchTypeOfSport(event) {
+         this.setState({searchTypeOfSport: event.target.value.substr(0,20)})
+     }
+
+
     render(){
-        return (
-            <div className={"AllEvents"}>
+            let filteredEvents = this.state.events.filter(
+                (event) => {
+                     if(event.name_event.toLowerCase().indexOf(this.state.searchNameEvent.toLowerCase()) !== -1 && event.start_point.toLowerCase().indexOf(this.state.searchStartPoint.toLowerCase()) !== -1 && event.type_sport.toLowerCase().indexOf(this.state.searchTypeOfSport.toLowerCase()) !== -1)
+                     {
+                         return event;
+                     }
+                    return 0;
+                }
+            )
+         return (
+            <div >
+                <input name="Search name event"
+                       type="text"
+                       value={this.state.searchNameEvent}
+                       onChange={this.updateSearchNameEvent.bind(this)} />
                 <h1>Events</h1>
+                <div>
                 <ul>
-                    {this.state.events.map(event =>
-                        <li key={event.id_event}>{event.name_event} | {event.start_point} | {event.type_sport} | {event.date}</li>
+                    {filteredEvents.map(event =>
+                        <li key={event.id_event}>{event.name_event} | {event.start_point} | {event.type_sport} | {event.date}</li> //TUTAJ LADNIEJ TRZEBA TO ZROBIC
                     )}
                 </ul>
+                </div>
+                <input name="Search start"
+                       type="text"
+                       value={this.state.searchStartPoint}
+                       onChange={this.updateSearchStartPoint.bind(this)} />
+
+                <input name="Search start"
+                       type="text"
+                       value={this.state.searchTypeOfSport}
+                       onChange={this.updateSearchTypeOfSport.bind(this)} />
+
             </div>
         )
     }

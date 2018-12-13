@@ -57,6 +57,11 @@ class Navbar extends Component {
                                 all events
                             </Link>
                         </div>
+                        <div>
+                            <Link to="/userEvents" className="itemNav">
+                                Your Events
+                            </Link>
+                        </div>
                     </ul>
                 </AppBar>
 
