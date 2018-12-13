@@ -4,9 +4,8 @@ import TextField from '@material-ui/core/TextField';
 import Button from "@material-ui/core/Button/Button";
 
 class EditEvent extends Component {
-    constructor(props) {
-        super(props)
-        console.log(props);
+    constructor() {
+        super()
         this.state = {
             name_event: '',
             start_point: '',
@@ -46,14 +45,15 @@ class EditEvent extends Component {
             phone_organizer: this.state.phone_organizer
         }
         editEvent(event).then(res => {
-            this.props.history.push(`/events`)
+            this.props.history.push(`/userEvents`)
         })
     }
 
 
     componentDidMount () {
-        getEvent().then(res => {
-            console.log(res);
+        const id_userEvent = localStorage.userEvent;
+        localStorage.removeItem('userEvent')
+        getEvent(id_userEvent).then(res => {
             this.setState({
                 id_user: res.id_user,
                 id_event: res.id_event,

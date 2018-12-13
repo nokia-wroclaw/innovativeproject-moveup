@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { getUserEvents} from './EventFunctions'
 import jwt_decode from "jwt-decode";
-import Event from './Event'
 
 class UserEvents extends Component {
     constructor() {
@@ -9,6 +8,8 @@ class UserEvents extends Component {
         this.state = {
             events: []
         }
+
+        this.onSubmit = this.onSubmit.bind(this)
     }
 
     componentDidMount(){
@@ -16,6 +17,12 @@ class UserEvents extends Component {
         const decoded = jwt_decode(token);
         getUserEvents(decoded)
             .then(events => this.setState({events}))
+    }
+
+
+    onSubmit (eventId) {
+        localStorage.setItem('userEvent', eventId)
+            this.props.history.push(`/editEvent`)
     }
 
     render(){
@@ -27,13 +34,21 @@ class UserEvents extends Component {
                         {filteredEvents.map(event =>
                             {
                             return(
-                              <Event event={event} key={event.id_event}/>
+                                <li key={event.id_event}>{event.name_event} | {event.start_point} | {event.type_sport} | {event.date}
+                                        <button onClick={() => {this.onSubmit(event.id_event)}} >
+                                        Edit
+                                    </button>
+                                </li>
                                 )
                         }
                         )}
                     </ul>
+
             </div>
+
         )
     }
+
+
 }
 export default UserEvents

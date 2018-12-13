@@ -123,6 +123,7 @@ class Profile extends Component {
                                        label="SEX"
                                        margin="normal"
                             />
+
                         </div>
                         <div className="form-group">
                             <TextField type="text"
