@@ -10,7 +10,7 @@ import CreateEvent from './components/CreateEvent'
 import AllEvents from './components/AllEvents'
 import UserEvents from './components/UserEvents'
 import EditEvent from './components/EditEvent'
-
+import AddComment from './components/AddComment'
 class App extends Component {
     render () {
         return (
@@ -26,6 +26,7 @@ class App extends Component {
                         <Route exact path="/allEvents" component={AllEvents} />
                         <Route exact path="/userEvents" component={UserEvents} />
                         <Route exact path="/editEvent" component={EditEvent}/>
+                        <Route exact path="/addComment" component={AddComment}/>
                     </div>
                 </div>
             </Router>

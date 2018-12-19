@@ -53,22 +53,26 @@ class EditEvent extends Component {
     componentDidMount () {
         const id_userEvent = localStorage.userEvent;
         localStorage.removeItem('userEvent')
-        getEvent(id_userEvent).then(res => {
-            this.setState({
-                id_user: res.id_user,
-                id_event: res.id_event,
-                name_event: res.name_event,
-                start_point: res.start_point,
-                type_sport: res.type_sport,
-                date: res.date,
-                time: res.time,
-                pref_age: res.pref_age,
-                pref_sex: res.pref_sex,
-                advanced: res.advanced,
-                repetition: res.repetition,
-                phone_organizer: res.phone_organizer
+        try {
+            getEvent(id_userEvent).then(res => {
+                this.setState({
+                    id_user: res.id_user,
+                    id_event: res.id_event,
+                    name_event: res.name_event,
+                    start_point: res.start_point,
+                    type_sport: res.type_sport,
+                    date: res.date,
+                    time: res.time,
+                    pref_age: res.pref_age,
+                    pref_sex: res.pref_sex,
+                    advanced: res.advanced,
+                    repetition: res.repetition,
+                    phone_organizer: res.phone_organizer
+                })
             })
-        })
+        }catch(err){
+            this.props.history.push('/userEvents')
+        }
     }
 
 

@@ -137,4 +137,13 @@ events.put('/getAllUserEvents', (req, res) => {
         })
 });
 
+events.delete('/deleteEvent', (req, res) => {
+        Event.destroy({
+            where: {
+                id_event: req.body.id_event
+            }
+        })
+        res.json({ status: req.body.id_event + ' deleted' })
+});
+
 module.exports = events;

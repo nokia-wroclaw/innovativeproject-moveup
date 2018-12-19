@@ -65,3 +65,18 @@ export const editEvent = event => {
             console.log("error:  " + err)
         })
 }
+
+export const deleteUserEvent = id_event => {
+    return axios
+        .delete('events/deleteEvent', {
+            data: {
+                id_event: id_event
+            }
+
+        }).then(res => {
+            console.log("Your event was deleted")
+            console.log(id_event)
+        }).catch(err => {
+            console.log("error:  " + err)
+        })
+}

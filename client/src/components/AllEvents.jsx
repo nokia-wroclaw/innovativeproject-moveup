@@ -28,6 +28,11 @@ import React, { Component } from 'react'
      }
 
 
+     onSubmit (eventId) {
+         localStorage.setItem('userEvent', eventId)
+         this.props.history.push(`/addComment`)
+     }
+
     render(){
             let filteredEvents = this.state.events.filter(
                 (event) => {
@@ -48,7 +53,10 @@ import React, { Component } from 'react'
                 <div>
                 <ul>
                     {filteredEvents.map(event =>
-                        <li key={event.id_event}>{event.name_event} | {event.start_point} | {event.type_sport} | {event.date}</li> //TUTAJ LADNIEJ TRZEBA TO ZROBIC
+                        <li key={event.id_event}>{event.name_event} | {event.start_point} | {event.type_sport} | {event.date} |||||
+                            <button onClick={() => {this.onSubmit(event.id_event)}}>
+                                Comment
+                            </button></li> //TUTAJ LADNIEJ TRZEBA TO ZROBIC
                     )}
                 </ul>
                 </div>
