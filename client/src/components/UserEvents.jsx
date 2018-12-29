@@ -1,7 +1,8 @@
-import React, { Component } from 'react'
-import { getUserEvents,deleteUserEvent} from './EventFunctions'
-import jwt_decode from "jwt-decode";
-import {getComments} from './CommentFunctions'
+import React, {Component} from 'react'
+import {getUserEvents, deleteUserEvent} from './EventFunctions'
+import jwt_decode from "jwt-decode"
+import Comments from './Comments'
+
 class UserEvents extends Component {
     constructor() {
         super();
@@ -12,55 +13,49 @@ class UserEvents extends Component {
 
         this.onSubmit = this.onSubmit.bind(this)
     }
-
     componentDidMount(){
         const token = localStorage.usertoken;
         const decoded = jwt_decode(token);
         getUserEvents(decoded)
             .then(events => this.setState({events}))
-            //.then(this.state.events.map(event => {
-             //   getComments(event.id_event)
-             //       .then(comments => this.setState([comments]))
-             //   console.log(event.id_event)
-         //   }))
     }
-    onSubmit (eventId) {
+
+    onSubmit(eventId) {
         localStorage.setItem('userEvent', eventId)
-            this.props.history.push(`/editEvent`)
+        this.props.history.push(`/editEvent`)
     }
+
     onDelete(eventId) {
         deleteUserEvent(eventId)
         this.props.history.push(`/editEvent`)
     }
 
-    render(){
+    render() {
         let filteredEvents = this.state.events;
-        //console.log(this.state.comments)
         return (
-            <div >
+            <div>
                 <h1>Your events</h1>
-                    <ul>
-                        {filteredEvents.map(event =>
-                            {
-                            return(
+                <ul>
+                    {filteredEvents.map(event => {
+                            return (
                                 <li key={event.id_event}>{event.name_event} | {event.start_point} | {event.type_sport} | {event.date}
-                                        <button onClick={() => {this.onSubmit(event.id_event)}} >
+                                    <button onClick={() => {
+                                        this.onSubmit(event.id_event)
+                                    }}>
                                         Edit
                                     </button>
-                                    <button onClick={() => {this.onDelete(event.id_event)}} >
+                                    <button onClick={() => {
+                                        this.onDelete(event.id_event)
+                                    }}>
                                         Delete this event
                                     </button>
+                                    <Comments eventId={event.id_event}/>
                                 </li>
-                                )
-                        }
-                        )}
-                    </ul>
-
+                            )}
+                    )}
+                </ul>
             </div>
-
         )
     }
-
-
 }
 export default UserEvents

@@ -23,3 +23,27 @@ export const getComments = eventId => {
             console.log("error  " + err)
         })
 }
+
+export const verificationComment = data => {
+    return axios
+        .put('comments/verificationComment', {
+            id_comment: data.id_comment,
+            verification: data.verification
+        }).then(res => {
+            console.log("u send ur veryfication")
+        }).catch(err => {
+            console.log("error  " + err)
+        })
+}
+
+export const getCommentsWithVerification = eventId => {
+    return axios
+        .put('comments/getCommentsWithVerification', {
+            id_event: eventId
+        }).then(res => {
+            console.log("u got all coments in allEvents")
+            return res.data
+        }).catch(err => {
+            console.log("error  " + err)
+        })
+}

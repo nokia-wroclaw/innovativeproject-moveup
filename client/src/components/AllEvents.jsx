@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-
+import ViewCommentsInAllEvents from './ViewCommentsInAllEvents'
+import Comments from "./Comments";
  class AllEvents extends Component {
      constructor() {
          super();
@@ -56,7 +57,9 @@ import React, { Component } from 'react'
                         <li key={event.id_event}>{event.name_event} | {event.start_point} | {event.type_sport} | {event.date} |||||
                             <button onClick={() => {this.onSubmit(event.id_event)}}>
                                 Comment
-                            </button></li> //TUTAJ LADNIEJ TRZEBA TO ZROBIC
+                            </button>
+                        <ViewCommentsInAllEvents eventId={event.id_event}/>
+                        </li> //TUTAJ LADNIEJ TRZEBA TO ZROBIC
                     )}
                 </ul>
                 </div>
