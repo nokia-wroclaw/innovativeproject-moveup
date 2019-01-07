@@ -3,6 +3,19 @@ import { registerEvent } from './EventFunctions'
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import jwt_decode from "jwt-decode";
+import { withStyles } from '@material-ui/core/styles';
+import "./CreateEvent.css"
+const styles = theme => ({
+    container: {
+        display: 'flex',
+        flexWrap: 'wrap',
+    },
+    textField: {
+        marginLeft: theme.spacing.unit,
+        marginRight: theme.spacing.unit,
+        width: 200,
+    },
+});
 
 class CreateEvent extends Component {
     constructor() {
@@ -49,21 +62,17 @@ class CreateEvent extends Component {
         }
 
         registerEvent(event).then(res => {
-            this.props.history.push(`/`) // narazie nie ma zakladki "twoje ogloszenia np"
+            this.props.history.push(`/`)
         })
     }
-
     render () {
+        const { classes } = this.props;
         return (
-            <div className="container">
-                <div className="row">
-                    <div className="col-md-6 mt-5 mx-auto">
-                        <form noValidate onSubmit={this.onSubmit}>
-                            <h1 className="textCenter3">Create your account</h1>
-                            <div className="form-group">
+                        <form className={classes.container} noValidate autoComplete="off" onSubmit={this.onSubmit}>
+                            <h1 className="width100">Create your account</h1>
                                 <TextField type="text"
                                            variant="outlined"
-                                           className="textField3"
+                                           className={classes.textField}
                                            name="name_event"
                                            placeholder="Enter name of event"
                                            value={this.state.name_event}
@@ -71,11 +80,11 @@ class CreateEvent extends Component {
                                            label="NAME EVENT"
                                            margin="normal"
                                 />
-                            </div>
-                            <div className="form-group">
+
+
                                 <TextField type="text"
                                            variant="outlined"
-                                           className="textField3"
+                                           className={classes.textField}
                                            name="start_point"
                                            placeholder="Enter start point"
                                            value={this.state.start_point}
@@ -83,11 +92,11 @@ class CreateEvent extends Component {
                                            label="START_POINT"
                                            margin="normal"
                                 />
-                            </div>
-                            <div className="form-group">
+
+
                                 <TextField type="text"
                                            variant="outlined"
-                                           className="textField3"
+                                           className={classes.textField}
                                            name="type_sport"
                                            placeholder="Enter type of sport"
                                            value={this.state.type_sport}
@@ -95,11 +104,11 @@ class CreateEvent extends Component {
                                            label="TYPE OF SPORT"
                                            margin="normal"
                                 />
-                            </div>
-                            <div className="form-group">
+
+
                                 <TextField type="text"
                                            variant="outlined"
-                                           className="textField3"
+                                           className={classes.textField}
                                            name="date"
                                            placeholder="Enter date"
                                            value={this.state.date}
@@ -107,11 +116,10 @@ class CreateEvent extends Component {
                                            label="DATE"
                                            margin="normal"
                                 />
-                            </div>
-                            <div className="form-group">
+
                                 <TextField type="text"
                                            variant="outlined"
-                                           className="textField3"
+                                           className={classes.textField}
                                            name="time"
                                            placeholder="Enter time"
                                            value={this.state.time}
@@ -119,11 +127,10 @@ class CreateEvent extends Component {
                                            label="TIME"
                                            margin="normal"
                                 />
-                            </div>
-                            <div className="form-group">
+
                                 <TextField type="text"
                                            variant="outlined"
-                                           className="textField3"
+                                           className={classes.textField}
                                            name="pref_age"
                                            placeholder="Enter optional age if u must"
                                            value={this.state.pref_age}
@@ -131,11 +138,10 @@ class CreateEvent extends Component {
                                            label="OPTIONAL AGE"
                                            margin="normal"
                                 />
-                            </div>
-                            <div className="form-group">
+
                                 <TextField type="text"
                                            variant="outlined"
-                                           className="textField3"
+                                           className={classes.textField}
                                            name="pref_sex"
                                            placeholder="Enter optional sex if u must"
                                            value={this.state.pref_sex}
@@ -143,11 +149,10 @@ class CreateEvent extends Component {
                                            label="OPTIONAL SEX"
                                            margin="normal"
                                 />
-                            </div>
-                            <div className="form-group">
+
                                 <TextField type="text"
                                            variant="outlined"
-                                           className="textField3"
+                                           className={classes.textField}
                                            name="advanced"
                                            placeholder="Enter advanced if u must"
                                            value={this.state.advanced}
@@ -155,11 +160,10 @@ class CreateEvent extends Component {
                                            label="ADVANCED"
                                            margin="normal"
                                 />
-                            </div>
-                            <div className="form-group">
+
                                 <TextField type="text"
                                            variant="outlined"
-                                           className="textField3"
+                                           className={classes.textField}
                                            name="repetition"
                                            placeholder="Enter repetition if this event is repeatable"
                                            value={this.state.repetition}
@@ -167,11 +171,10 @@ class CreateEvent extends Component {
                                            label="REPETITION"
                                            margin="normal"
                                 />
-                            </div>
-                            <div className="form-group">
+
                                 <TextField type="number_phone"
                                            variant="outlined"
-                                           className="textField3"
+                                           className={classes.textField}
                                            name="phone_organizer"
                                            placeholder="Enter  number phone to organizer if u have"
                                            value={this.state.phone_organizer}
@@ -179,16 +182,13 @@ class CreateEvent extends Component {
                                            label="NUMBER PHONE TO ORGANIZER"
                                            margin="normal"
                                 />
-                            </div>
-                            <Button className="button3" type="submit" variant="contained" color="primary" >
+
+                            <Button className="width100" type="submit" variant="contained" color="primary" >
                                 Create new event
                             </Button>
                         </form>
-                    </div>
-                </div>
-            </div>
         )
     }
 }
 
-export default CreateEvent
+export default withStyles(styles)(CreateEvent);

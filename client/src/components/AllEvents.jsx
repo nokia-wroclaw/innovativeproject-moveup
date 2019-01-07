@@ -1,6 +1,20 @@
 import React, { Component } from 'react'
 import ViewCommentsInAllEvents from './ViewCommentsInAllEvents'
-import Comments from "./Comments";
+import TextField from '@material-ui/core/TextField';
+import { withStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+import "./AllEvents.css"
+const styles = theme => ({
+    container: {
+        display: 'flex',
+        flexWrap: 'wrap',
+    },
+    textField: {
+        marginLeft: theme.spacing.unit,
+        marginRight: theme.spacing.unit,
+        width: 200,
+    },
+});
  class AllEvents extends Component {
      constructor() {
          super();
@@ -35,7 +49,8 @@ import Comments from "./Comments";
      }
 
     render(){
-            let filteredEvents = this.state.events.filter(
+        const { classes } = this.props;
+         let filteredEvents = this.state.events.filter(
                 (event) => {
                      if(event.name_event.toLowerCase().indexOf(this.state.searchNameEvent.toLowerCase()) !== -1 && event.start_point.toLowerCase().indexOf(this.state.searchStartPoint.toLowerCase()) !== -1 && event.type_sport.toLowerCase().indexOf(this.state.searchTypeOfSport.toLowerCase()) !== -1)
                      {
@@ -46,32 +61,88 @@ import Comments from "./Comments";
             )
          return (
             <div >
-                <input name="Search name event"
+                <TextField
+                    name="Search name event"
+                       className="inputSearch"
+                       placeholder="Search by name event"
+                           variant={"outlined"}
                        type="text"
                        value={this.state.searchNameEvent}
                        onChange={this.updateSearchNameEvent.bind(this)} />
-                <h1>Events</h1>
-                <div>
-                <ul>
-                    {filteredEvents.map(event =>
-                        <li key={event.id_event}>{event.name_event} | {event.start_point} | {event.type_sport} | {event.date} |||||
-                            <button onClick={() => {this.onSubmit(event.id_event)}}>
-                                Comment
-                            </button>
-                        <ViewCommentsInAllEvents eventId={event.id_event}/>
-                        </li> //TUTAJ LADNIEJ TRZEBA TO ZROBIC
-                    )}
-                </ul>
-                </div>
-                <input name="Search start"
+                <TextField
+                    name="Search start"
+                       className="inputSearch"
+                           variant={"outlined"}
+                       placeholder="Search by where events will start"
                        type="text"
                        value={this.state.searchStartPoint}
                        onChange={this.updateSearchStartPoint.bind(this)} />
 
-                <input name="Search start"
+                <TextField
+
+                    name="Search type of sport"
+                       className="inputSearch"
+                       placeholder="Search by type of sports"
                        type="text"
+                           variant={"outlined"}
                        value={this.state.searchTypeOfSport}
                        onChange={this.updateSearchTypeOfSport.bind(this)} />
+                <h1>Events</h1>
+                <div>
+                <ul>
+                    {filteredEvents.map(event =>
+                        <li key={event.id_event}>
+                            <TextField type="text"
+                                       variant="outlined"
+                                       className={classes.textField}
+                                       label={"NAME EVENT"}
+                                       value={event.name_event}
+                                       margin="normal"
+                                       InputProps={{
+                                           readOnly: true,
+                                       }}
+                            />
+                            <TextField type="text"
+                                       variant="outlined"
+                                       className={classes.textField}
+                                       label={"START POINT"}
+                                       value={event.start_point}
+                                       margin="normal"
+                                       InputProps={{
+                                           readOnly: true,
+                                       }}
+                            />
+                            <TextField type="text"
+                                       variant="outlined"
+                                       className={classes.textField}
+                                       label={"TYPE OF SPORT"}
+                                       value={event.type_sport}
+                                       margin="normal"
+                                       InputProps={{
+                                           readOnly: true,
+                                       }}
+                            />
+                            <TextField type="text"
+                                       variant="outlined"
+                                       className={classes.textField}
+                                       label={"START DATE"}
+                                       value={event.date}
+                                       margin="normal"
+                                       InputProps={{
+                                           readOnly: true,
+                                       }}
+                            />
+
+
+                            <Button color="secondary" onClick={() => {this.onSubmit(event.id_event)}}>
+                                Comment
+                            </Button>
+                        <ViewCommentsInAllEvents eventId={event.id_event}/>
+                        </li>
+                    )}
+                </ul>
+                </div>
+
 
             </div>
         )
@@ -79,4 +150,4 @@ import Comments from "./Comments";
 
 
 }
-export default AllEvents
+export default withStyles(styles)(AllEvents);

@@ -1,7 +1,7 @@
 .button2 {
     top: 60px;
-    left: 40%;
-    width: 21%;
+    left: 42%;
+    width: 12%;
 }
 
 .textField2 {
@@ -19,12 +19,4 @@
     margin: 10px;
     text-align: center;
     text-transform: uppercase;
-}
-
-
-.iron {
-    height: 80vmin;
-    margin-left: 200px;
-    margin-top: 50px;
-
 }

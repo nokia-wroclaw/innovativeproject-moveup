@@ -9,11 +9,13 @@
     "classnames": "^2.2.6",
     "jwt-decode": "^2.2.0",
     "material-ui": "^0.20.2",
+    "postscribe": "^2.0.8",
     "prop-types": "^15.6.2",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
+    "react-helmet": "^5.2.0",
     "react-router-dom": "^4.3.1",
-    "react-scripts": "2.0.4"
+    "react-scripts": "^2.1.2"
   },
   "scripts": {
     "start": "react-scripts start",
