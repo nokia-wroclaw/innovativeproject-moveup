@@ -18,7 +18,30 @@ class Navbar extends Component {
         this.props.history.push(`/`)
     }
 
+    handlePageChangeToYourEvents(e) {
+        e.preventDefault()
+        window.location = "/userEvents";
+    }
 
+    handlePageChangeToHome(e) {
+        e.preventDefault()
+        window.location = "/";
+    }
+
+    handlePageChangeToProfile(e) {
+        e.preventDefault()
+        window.location = "/profile";
+    }
+
+    handlePageChangeToYourEvents(e) {
+        e.preventDefault()
+        window.location = "/userEvents";
+    }
+
+    handlePageChangeToYourEvents(e) {
+        e.preventDefault()
+        window.location = "/userEvents";
+    }
 
     render() {
 
@@ -44,9 +67,10 @@ class Navbar extends Component {
                         </Link>
                     </Grid>
                     <Grid item >
-                        <a href="#" onClick={this.logOut.bind(this)} className="nav-link">
-                            <Button variant="outlined" color="default">Logout</Button>
-                        </a>
+                            <Button variant="outlined" color="default"
+                                    onClick={this.logOut.bind(this)}>
+                                    Logout
+                                    </Button>
                     </Grid>
                     <Grid item >
                         <Link to="/createEvent" className="itemNav">
@@ -59,9 +83,10 @@ class Navbar extends Component {
                         </Link>
                     </Grid>
                     <Grid item >
-                        <Link to="/userEvents" className="itemNav">
-                            <Button variant="outlined" color="default"> Your Events </Button>
-                        </Link>
+                            <Button variant="outlined" color="default"
+                                    onClick={this.handlePageChangeToYourEvents.bind(this)}>
+                                Your Events
+                            </Button>
                     </Grid>
                 </Grid>
             </AppBar>
