@@ -4,6 +4,8 @@ import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import "./AllEvents.css"
+import Grid from '@material-ui/core/Grid';
+
 const styles = theme => ({
     container: {
         display: 'flex',
@@ -60,7 +62,8 @@ const styles = theme => ({
                 }
             )
          return (
-            <div >
+             <Grid container direction="row" justify="space-between" alignItems="center" spacing={0}>
+               <Grid item>
                 <TextField
                     name="Search name event"
                        className="inputSearch"
@@ -69,6 +72,8 @@ const styles = theme => ({
                        type="text"
                        value={this.state.searchNameEvent}
                        onChange={this.updateSearchNameEvent.bind(this)} />
+               </Grid>
+                 <Grid item>
                 <TextField
                     name="Search start"
                        className="inputSearch"
@@ -77,9 +82,9 @@ const styles = theme => ({
                        type="text"
                        value={this.state.searchStartPoint}
                        onChange={this.updateSearchStartPoint.bind(this)} />
-
+                 </Grid>
+                 <Grid item>
                 <TextField
-
                     name="Search type of sport"
                        className="inputSearch"
                        placeholder="Search by type of sports"
@@ -87,8 +92,12 @@ const styles = theme => ({
                            variant={"outlined"}
                        value={this.state.searchTypeOfSport}
                        onChange={this.updateSearchTypeOfSport.bind(this)} />
+                 </Grid>
+
+                 <Grid container direction="row" justify="space-between" alignItems="center" spacing={0}>
                 <h1>Events</h1>
-                <div>
+                 </Grid>
+                 <Grid container direction="row" justify="space-between" alignItems="center" spacing={0}>
                 <ul>
                     {filteredEvents.map(event =>
                         <li key={event.id_event}>
@@ -134,17 +143,19 @@ const styles = theme => ({
                             />
 
 
-                            <Button color="secondary" onClick={() => {this.onSubmit(event.id_event)}}>
+                            <Button color="secondary"
+                                    onClick={() => {this.onSubmit(event.id_event)}}>
                                 Comment
                             </Button>
                         <ViewCommentsInAllEvents eventId={event.id_event}/>
                         </li>
                     )}
                 </ul>
-                </div>
+                 </Grid>
+
+             </Grid>
 
 
-            </div>
         )
     }
 

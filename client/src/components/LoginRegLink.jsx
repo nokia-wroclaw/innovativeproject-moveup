@@ -31,7 +31,7 @@ export const loginRegLink = (
                     Register
                 </Link>
             </div>
-    </ul>
+        </ul>
     </AppBar>
 
 )

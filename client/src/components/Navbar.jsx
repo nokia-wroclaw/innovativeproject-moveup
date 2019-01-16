@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Link, withRouter } from 'react-router-dom'
 import AppBar from '@material-ui/core/AppBar';
 import './Navbar.css';
-import {loginRegLink} from './LoginRegLink'
+//import {loginRegLink} from './LoginRegLink'
 import SvgIcon from '@material-ui/core/SvgIcon';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
@@ -18,33 +18,36 @@ class Navbar extends Component {
         this.props.history.push(`/`)
     }
 
-    handlePageChangeToYourEvents(e) {
-        e.preventDefault()
+    handlePageChangeToYourEvents() {
         window.location = "/userEvents";
     }
 
-    handlePageChangeToHome(e) {
-        e.preventDefault()
+    handlePageChangeToHome() {
         window.location = "/";
     }
 
-    handlePageChangeToProfile(e) {
-        e.preventDefault()
+    handlePageChangeToProfile() {
         window.location = "/profile";
     }
 
-    handlePageChangeToYourEvents(e) {
-        e.preventDefault()
-        window.location = "/userEvents";
+    handlePageChangeToCreateEvent() {
+        window.location = "/createEvent";
     }
 
-    handlePageChangeToYourEvents(e) {
-        e.preventDefault()
-        window.location = "/userEvents";
+    handlePageChangeToAllEvents() {
+        window.location = "/allEvents";
     }
+
+    handlePageChangeToLogin() {
+        window.location = "/login";
+    }
+
+    handlePageChangeToRegister() {
+        window.location = "/register";
+    }
+
 
     render() {
-
         function HomeIcon(props) {
             return (
                 <SvgIcon {...props}>
@@ -52,46 +55,72 @@ class Navbar extends Component {
                 </SvgIcon>
             );
         }
-        const userLink = (
+            const userLink = (
 
             <AppBar position="static" className="AppBarContainer">
-                <Grid container direction="row" justify="flex-start" alignItems="center" spacing={16}>
+                <Grid container direction="row" justify="space-between" alignItems="center" spacing={0}>
                     <Grid item >
                         <Link to="/" >
                             <HomeIcon color="action" className="itemNav" />
                         </Link>
                     </Grid>
                     <Grid item >
-                        <Link to="/profile" className="nav-link">
-                            <Button variant="outlined" color="default"> User </Button>
-                        </Link>
+                           <Button color="default"
+                                   onClick={this.handlePageChangeToProfile}>
+                               User
+                           </Button>
                     </Grid>
                     <Grid item >
-                            <Button variant="outlined" color="default"
+                            <Button color="default"
                                     onClick={this.logOut.bind(this)}>
                                     Logout
                                     </Button>
                     </Grid>
                     <Grid item >
-                        <Link to="/createEvent" className="itemNav">
-                            <Button variant="outlined" color="default">Create event</Button>
-                        </Link>
+                            <Button color="default"
+                                    onClick={this.handlePageChangeToCreateEvent}>
+                                Create event
+                            </Button>
                     </Grid>
                     <Grid item >
-                        <Link to="/allEvents" className="itemNav">
-                            <Button variant="outlined" color="default">all events</Button>
-                        </Link>
+                            <Button color="default"
+                                    onClick={this.handlePageChangeToAllEvents}>
+                                All events
+                            </Button>
                     </Grid>
                     <Grid item >
-                            <Button variant="outlined" color="default"
-                                    onClick={this.handlePageChangeToYourEvents.bind(this)}>
+                            <Button color="default"
+                                    onClick={this.handlePageChangeToYourEvents}>
                                 Your Events
                             </Button>
                     </Grid>
                 </Grid>
-            </AppBar>
+            </AppBar>)
 
-        )
+                const loginRegLink = (
+                    <AppBar position="static" className="AppBarContainer">
+                        <Grid container direction="row" justify="flex-start" alignItems="center" spacing={8}>
+                            <Grid item >
+                                <Link to="/" >
+                                    <HomeIcon color="action" className="itemNav" />
+                                </Link>
+                            </Grid>
+                            <Grid item >
+                                <Button color="default"
+                                        onClick={this.handlePageChangeToLogin}>
+                                    Login
+                                </Button>
+                            </Grid>
+                            <Grid item >
+                                <Button color="default"
+                                        onClick={this.handlePageChangeToRegister}>
+                                    Register
+                                </Button>
+                            </Grid>
+                        </Grid>
+                    </AppBar>
+                )
+
         return (
             <nav className="AppBarContainer">
                 {localStorage.usertoken ? userLink : loginRegLink}
