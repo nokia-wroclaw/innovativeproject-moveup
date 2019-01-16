@@ -58,6 +58,11 @@ class Navbar extends Component {
                             <Button variant="outlined" color="default">all events</Button>
                         </Link>
                     </Grid>
+                    <Grid item >
+                        <Link to="/userEvents" className="itemNav">
+                            <Button variant="outlined" color="default"> Your Events </Button>
+                        </Link>
+                    </Grid>
                 </Grid>
             </AppBar>
 
