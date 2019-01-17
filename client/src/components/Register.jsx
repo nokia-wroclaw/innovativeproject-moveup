@@ -3,6 +3,8 @@ import { register } from './UserFunctions'
 import './Register.css';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
+import Grid from "@material-ui/core/Grid/Grid";
+import AppBar from "@material-ui/core/AppBar/AppBar";
 
 
 class Register extends Component {
@@ -46,15 +48,14 @@ class Register extends Component {
 
     render () {
         return (
-            <div className="container">
-                <div className="row">
-                    <div className="col-md-6 mt-5 mx-auto">
                         <form noValidate onSubmit={this.onSubmit}>
+                            <Grid container direction="column" justify="space-between" alignItems="center" spacing={0}>
+                                <Grid item >
                             <h1 className="textCenter3">Create your account</h1>
-                            <div className="form-group">
+                                </Grid>
+                                <Grid item >
                                 <TextField type="text"
                                            variant="outlined"
-                                           className="textField3"
                                            name="first_name"
                                            placeholder="Enter First Name"
                                            value={this.state.first_name}
@@ -62,11 +63,10 @@ class Register extends Component {
                                            label="FIRST NAME"
                                            margin="normal"
                                 />
-                            </div>
-                            <div className="form-group">
+                                </Grid>
+                                    <Grid item >
                                 <TextField type="text"
                                            variant="outlined"
-                                           className="textField3"
                                            name="last_name"
                                            placeholder="Enter Last Name"
                                            value={this.state.last_name}
@@ -74,11 +74,10 @@ class Register extends Component {
                                            label="LAST NAME"
                                            margin="normal"
                                 />
-                            </div>
-                            <div className="form-group">
+                                    </Grid>
+                                        <Grid item >
                                 <TextField type="email"
                                            variant="outlined"
-                                           className="textField3"
                                            name="email"
                                            placeholder="Enter Email"
                                            value={this.state.email}
@@ -86,11 +85,10 @@ class Register extends Component {
                                            label="EMAIL"
                                            margin="normal"
                                 />
-                            </div>
-                            <div className="form-group">
+                                        </Grid>
+                                            <Grid item >
                                 <TextField type="password"
                                            variant="outlined"
-                                           className="textField3"
                                            name="password"
                                            placeholder="Enter Password"
                                            value={this.state.password}
@@ -98,11 +96,10 @@ class Register extends Component {
                                            label="PASSWORD"
                                            margin="normal"
                                 />
-                            </div>
-                            <div className="form-group">
+                                            </Grid>
+                                                <Grid item >
                                 <TextField type="age"
                                            variant="outlined"
-                                           className="textField3"
                                            name="age"
                                            placeholder="Enter your age"
                                            value={this.state.age}
@@ -110,11 +107,10 @@ class Register extends Component {
                                            label="AGE"
                                            margin="normal"
                                 />
-                            </div>
-                            <div className="form-group">
+                                                </Grid>
+                                                    <Grid item >
                                 <TextField type="sex"
                                            variant="outlined"
-                                           className="textField3"
                                            name="sex"
                                            placeholder="Enter your sex"
                                            value={this.state.sex}
@@ -122,11 +118,10 @@ class Register extends Component {
                                            label="SEX"
                                            margin="normal"
                                 />
-                            </div>
-                            <div className="form-group">
+                                                    </Grid>
+                                                        <Grid item >
                                 <TextField type="number_phone"
                                            variant="outlined"
-                                           className="textField3"
                                            name="number_phone"
                                            placeholder="Enter your number of phone"
                                            value={this.state.number_phone}
@@ -134,14 +129,15 @@ class Register extends Component {
                                            label="NUMBER PHONE"
                                            margin="normal"
                                 />
-                            </div>
-                            <Button className="button3" type="submit" variant="contained" color="primary" >
+                                                        </Grid>
+                                                            <Grid item >
+                            <Button type="submit" variant="contained" color="primary" >
                                 Register
                             </Button>
+                                                            </Grid>
+                                                        </Grid>
                         </form>
-                    </div>
-                </div>
-            </div>
+
         )
     }
 }

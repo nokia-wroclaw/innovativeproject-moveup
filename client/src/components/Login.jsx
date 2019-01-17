@@ -3,6 +3,8 @@ import { login } from './UserFunctions'
 import './Login.css';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
+import Grid from "@material-ui/core/Grid/Grid";
+import AppBar from "@material-ui/core/AppBar/AppBar";
 
 class Login extends Component {
     constructor() {
@@ -37,15 +39,15 @@ class Login extends Component {
 
     render () {
         return (
-            <div className="container">
-                <div className="row">
-                    <div className="col-md-6 mt-5 mx-auto">
+
                         <form noValidate onSubmit={this.onSubmit}>
+                            <Grid container direction="column" justify="space-around" alignItems="center" spacing={8}>
+                                <Grid item>
                             <h1 className="textCenter2">Please sign in</h1>
-                            <div className="form-group">
+                                </Grid>
+                                <Grid item>
                                 <TextField type="email"
                                            variant="outlined"
-                                           className="textField2"
                                            name="email"
                                            placeholder="Enter Email"
                                            value={this.state.email}
@@ -53,11 +55,10 @@ class Login extends Component {
                                            label="EMAIL"
                                            margin="normal"
                                 />
-                            </div>
-                            <div className="form-group">
+                                </Grid>
+                                    <Grid item>
                                 <TextField type="password"
                                            variant="outlined"
-                                           className="textField2"
                                            name="password"
                                            placeholder="Enter Password"
                                            value={this.state.password}
@@ -65,14 +66,14 @@ class Login extends Component {
                                            label="PASSWORD"
                                            margin="normal"
                                 />
-                            </div>
-                            <Button className="button2" type="submit" variant="contained" color="primary" >
+                                    </Grid>
+                                        <Grid item>
+                            <Button type="submit" variant="contained" color="primary" >
                                 Sign in
                             </Button>
+                                        </Grid>
+                            </Grid>
                         </form>
-                    </div>
-                </div>
-            </div>
         )
     }
 }

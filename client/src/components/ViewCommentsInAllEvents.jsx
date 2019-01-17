@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import {getCommentsWithVerification} from "./CommentFunctions";
 import TextField from '@material-ui/core/TextField';
 import {withStyles} from "@material-ui/core";
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
 
 const styles = theme => ({
     container: {
@@ -13,6 +15,15 @@ const styles = theme => ({
         marginRight: theme.spacing.unit,
         width: 200,
     },
+        root: {
+            ...theme.mixins.gutters(),
+            paddingTop: theme.spacing.unit * 2,
+            paddingBottom: theme.spacing.unit * 2,
+            marginTop: theme.spacing.unit,
+            marginRight: theme.spacing.unit,
+            backgroundColor: '#b3cccc',
+            margin: theme.spacing.unit,
+        },
 });
  class Comments extends Component {
     constructor(props) {
@@ -36,30 +47,14 @@ const styles = theme => ({
                     {this.state.comments.map(comment => {
                         return (
                             <li key={comment.id_comment}>
-                                <TextField
-                                    error
-                                    type="text"
-                                           variant="outlined"
-                                           className={classes.textField}
-                                           label={"NAME EVENT"}
-                                           value={comment.text}
-                                           margin="normal"
-                                           InputProps={{
-                                               readOnly: true,
-                                           }}
-                                />
-                                <TextField
-                                    error
-                                    type="text"
-                                           variant="outlined"
-                                           className={classes.textField}
-                                           label={"NAME EVENT"}
-                                           value={comment.id_event}
-                                           margin="normal"
-                                           InputProps={{
-                                               readOnly: true,
-                                           }}
-                                />
+                                <Paper className={classes.root} elevation={1}>
+                                    <Typography variant="h6" component="h3">
+                                        Comment
+                                    </Typography>
+                                    <Typography component="p">
+                                        {comment.text}
+                                    </Typography>
+                                </Paper>
                             </li>
                         )}
                     )}

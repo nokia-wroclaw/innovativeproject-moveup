@@ -5,6 +5,7 @@ import TextField from '@material-ui/core/TextField';
 import jwt_decode from "jwt-decode";
 import { withStyles } from '@material-ui/core/styles';
 import "./CreateEvent.css"
+import Grid from "@material-ui/core/Grid/Grid";
 const styles = theme => ({
     container: {
         display: 'flex',
@@ -69,10 +70,17 @@ class CreateEvent extends Component {
         const { classes } = this.props;
         return (
                         <form className={classes.container} noValidate autoComplete="off" onSubmit={this.onSubmit}>
-                            <h1 className="width100">Create your account</h1>
-                                <TextField type="text"
+                                <Grid container direction="column"
+                                      justify="center" alignItems="center" spacing={8}>
+                           <Grid item>
+                            <h1 className="width100">Create your event</h1>
+                            </Grid>
+                                </Grid>
+                                <Grid container direction="row"
+                                      justify="center" alignItems="center" spacing={24}>
+                                    <Grid item>
+                            <TextField type="text"
                                            variant="outlined"
-                                           className={classes.textField}
                                            name="name_event"
                                            placeholder="Enter name of event"
                                            value={this.state.name_event}
@@ -80,23 +88,24 @@ class CreateEvent extends Component {
                                            label="NAME EVENT"
                                            margin="normal"
                                 />
-
-
+                                    </Grid>
+                                    <Grid item>
                                 <TextField type="text"
                                            variant="outlined"
-                                           className={classes.textField}
                                            name="start_point"
                                            placeholder="Enter start point"
                                            value={this.state.start_point}
                                            onChange={this.onChange}
-                                           label="START_POINT"
+                                           label="START POINT"
                                            margin="normal"
                                 />
-
-
+                                    </Grid>
+                                </Grid>
+                                <Grid container direction="row"
+                                      justify="center" alignItems="center" spacing={24}>
+                                    <Grid item>
                                 <TextField type="text"
                                            variant="outlined"
-                                           className={classes.textField}
                                            name="type_sport"
                                            placeholder="Enter type of sport"
                                            value={this.state.type_sport}
@@ -104,11 +113,10 @@ class CreateEvent extends Component {
                                            label="TYPE OF SPORT"
                                            margin="normal"
                                 />
-
-
+                                    </Grid>
+                                        <Grid item>
                                 <TextField type="text"
                                            variant="outlined"
-                                           className={classes.textField}
                                            name="date"
                                            placeholder="Enter date"
                                            value={this.state.date}
@@ -116,10 +124,13 @@ class CreateEvent extends Component {
                                            label="DATE"
                                            margin="normal"
                                 />
-
+                                        </Grid>
+                                </Grid>
+                                        <Grid container direction="row"
+                                              justify="center" alignItems="center" spacing={24}>
+                                            <Grid item>
                                 <TextField type="text"
                                            variant="outlined"
-                                           className={classes.textField}
                                            name="time"
                                            placeholder="Enter time"
                                            value={this.state.time}
@@ -127,10 +138,10 @@ class CreateEvent extends Component {
                                            label="TIME"
                                            margin="normal"
                                 />
-
+                                            </Grid>
+                                                <Grid item>
                                 <TextField type="text"
                                            variant="outlined"
-                                           className={classes.textField}
                                            name="pref_age"
                                            placeholder="Enter optional age if u must"
                                            value={this.state.pref_age}
@@ -138,10 +149,13 @@ class CreateEvent extends Component {
                                            label="OPTIONAL AGE"
                                            margin="normal"
                                 />
-
+                                                </Grid>
+                                        </Grid>
+                                                <Grid container direction="row"
+                                                      justify="center" alignItems="center" spacing={24}>
+                                                    <Grid item>
                                 <TextField type="text"
                                            variant="outlined"
-                                           className={classes.textField}
                                            name="pref_sex"
                                            placeholder="Enter optional sex if u must"
                                            value={this.state.pref_sex}
@@ -149,10 +163,10 @@ class CreateEvent extends Component {
                                            label="OPTIONAL SEX"
                                            margin="normal"
                                 />
-
+                                                    </Grid>
+                                                        <Grid item>
                                 <TextField type="text"
                                            variant="outlined"
-                                           className={classes.textField}
                                            name="advanced"
                                            placeholder="Enter advanced if u must"
                                            value={this.state.advanced}
@@ -160,10 +174,13 @@ class CreateEvent extends Component {
                                            label="ADVANCED"
                                            margin="normal"
                                 />
-
+                                                        </Grid>
+                                                </Grid>
+                                                        <Grid container direction="row"
+                                                              justify="center" alignItems="center" spacing={24}>
+                                                            <Grid item>
                                 <TextField type="text"
                                            variant="outlined"
-                                           className={classes.textField}
                                            name="repetition"
                                            placeholder="Enter repetition if this event is repeatable"
                                            value={this.state.repetition}
@@ -171,10 +188,10 @@ class CreateEvent extends Component {
                                            label="REPETITION"
                                            margin="normal"
                                 />
-
+                                                            </Grid>
+<Grid item>
                                 <TextField type="number_phone"
                                            variant="outlined"
-                                           className={classes.textField}
                                            name="phone_organizer"
                                            placeholder="Enter  number phone to organizer if u have"
                                            value={this.state.phone_organizer}
@@ -182,10 +199,16 @@ class CreateEvent extends Component {
                                            label="NUMBER PHONE TO ORGANIZER"
                                            margin="normal"
                                 />
-
-                            <Button className="width100" type="submit" variant="contained" color="primary" >
+                                                            </Grid>
+                                                        </Grid>
+                                                                <Grid container direction="column"
+                                                                      justify="space-around" alignItems="center" spacing={24}>
+                                                                    <Grid item>
+                            <Button type="submit" variant="contained" color="primary" >
                                 Create new event
                             </Button>
+                                                                    </Grid>
+                                                                </Grid>
                         </form>
         )
     }
