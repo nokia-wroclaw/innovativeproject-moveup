@@ -3,6 +3,9 @@ import {getComments,verificationComment} from "./CommentFunctions";
 import TextField from '@material-ui/core/TextField';
 import {withStyles} from "@material-ui/core";
 import Button from '@material-ui/core/Button';
+import Grid from "@material-ui/core/Grid/Grid";
+import Paper from "@material-ui/core/Paper/Paper";
+import Typography from "@material-ui/core/Typography/Typography";
 const styles = theme => ({
     container: {
         display: 'flex',
@@ -12,6 +15,15 @@ const styles = theme => ({
         marginLeft: theme.spacing.unit,
         marginRight: theme.spacing.unit,
         width: 200,
+    },
+    root: {
+        ...theme.mixins.gutters(),
+        paddingTop: theme.spacing.unit * 2,
+        paddingBottom: theme.spacing.unit * 2,
+        marginTop: theme.spacing.unit,
+        marginRight: theme.spacing.unit,
+        backgroundColor: '#b3cccc',
+        margin: theme.spacing.unit,
     },
 });
 
@@ -45,40 +57,26 @@ class Comments extends Component {
                         {this.state.comments.map(comment => {
                             return (
                                 <li key={comment.id_comment}>
-                                    <TextField
-                                        error
-                                        type="text"
-                                        variant="outlined"
-                                        className={classes.textField}
-                                        label={"NAME EVENT"}
-                                        value={comment.text}
-                                        margin="normal"
-                                        InputProps={{
-                                            readOnly: true,
-                                        }}
-                                    />
-                                    <TextField
-                                        error
-                                        type="text"
-                                        variant="outlined"
-                                        className={classes.textField}
-                                        label={"ID EVENT"}
-                                        value={comment.id_event}
-                                        margin="normal"
-                                        InputProps={{
-                                            readOnly: true,
-                                        }}
-                                    />
-                                    <Button onClick={() => {
+                                    <Grid container direction="row" justify="center" alignItems="center" spacing={0}>
+                                        <Paper className={classes.root} elevation={1}>
+                                            <Typography variant="h6" component="h3">
+                                                {comment.id_event}
+                                            </Typography>
+                                            <Typography component="p">
+                                                {comment.text}
+                                            </Typography>
+                                    <Button color="primary" onClick={() => {
                                         this.onSubmit(comment.id_comment,"agree")
                                     }}>
                                         Agree this comment
                                     </Button>
-                                    <Button onClick={() => {
+                                    <Button color="secondary" onClick={() => {
                                         this.onSubmit(comment.id_comment,"disAgree")
                                     }}>
                                         disAgree this comment
                                     </Button>
+                                        </Paper>
+                                    </Grid>
                                 </li>
                             )}
                         )}

@@ -5,6 +5,17 @@ import Comments from './Comments'
 import TextField from '@material-ui/core/TextField';
 import {withStyles} from "@material-ui/core";
 import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import Avatar from '@material-ui/core/Avatar';
+import IconButton from '@material-ui/core/IconButton';
+import blue from '@material-ui/core/colors/blue';
+import CardHeader from '@material-ui/core/CardHeader';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
+import Typography from '@material-ui/core/Typography';
+
 const styles = theme => ({
     container: {
         display: 'flex',
@@ -14,6 +25,28 @@ const styles = theme => ({
         marginLeft: theme.spacing.unit,
         marginRight: theme.spacing.unit,
         width: 200,
+    },
+    card: {
+        width: 600,
+        marginTop: theme.spacing.unit,
+        backgroundColor: '#e6f2ff',
+    },
+    media: {
+        height: 0,
+        paddingTop: '56.25%', // 16:9
+    },
+    expand: {
+        transform: 'rotate(0deg)',
+        marginLeft: 'auto',
+        transition: theme.transitions.create('transform', {
+            duration: theme.transitions.duration.shortest,
+        }),
+    },
+    expandOpen: {
+        transform: 'rotate(180deg)',
+    },
+    avatar: {
+        backgroundColor: blue[500],
     },
 });
 class UserEvents extends Component {
@@ -53,59 +86,48 @@ class UserEvents extends Component {
                     {filteredEvents.map(event => {
                             return (
                                 <li key={event.id_event}>
-                                    <TextField type="text"
-                                               variant="outlined"
-                                               className={classes.textField}
-                                               label={"NAME EVENT"}
-                                               value={event.name_event}
-                                               margin="normal"
-                                               InputProps={{
-                                                   readOnly: true,
-                                               }}
-                                    />
-                                    <TextField type="text"
-                                               variant="outlined"
-                                               className={classes.textField}
-                                               label={"START POINT"}
-                                               value={event.start_point}
-                                               margin="normal"
-                                               InputProps={{
-                                                   readOnly: true,
-                                               }}
-                                    />
-                                    <TextField type="text"
-                                               variant="outlined"
-                                               className={classes.textField}
-                                               label={"TYPE OF SPORT"}
-                                               value={event.type_sport}
-                                               margin="normal"
-                                               InputProps={{
-                                                   readOnly: true,
-                                               }}
-                                    />
-                                    <TextField type="text"
-                                               variant="outlined"
-                                               className={classes.textField}
-                                               label={"START DATE"}
-                                               value={event.date}
-                                               margin="normal"
-                                               InputProps={{
-                                                   readOnly: true,
-                                               }}
-                                    />
-                                    <Button variant="contained" onClick={() => {
+                                    <Grid container direction="row" justify="center" alignItems="center" spacing={0}>
+                                        <Grid item>
+                                            <Card className={classes.card}>
+                                                <CardHeader
+                                                    avatar={
+                                                        <Avatar aria-label="Recipe" className={classes.avatar}>
+                                                            {event.id_event}
+                                                        </Avatar>
+                                                    }
+                                                    title={event.type_sport}
+                                                    subheader={"Start date: " + event.date}
+
+                                                />
+                                                <CardContent>
+                                                    <Typography gutterBottom variant="h5" component="h2">
+                                                        {event.name_event}
+                                                    </Typography>
+                                                    <Typography component="p">
+                                                        Start point: {event.start_point} <br/>
+                                                        Advanced: {event.advanced} <br/>
+                                                        Repetition: {event.repetition}
+                                                    </Typography>
+                                                </CardContent>
+                                                <CardActions>
+                                    <Button color="primary" onClick={() => {
                                         this.onSubmit(event.id_event)
                                     }}>
                                         Edit
                                     </Button>
-                                    <Button variant="contained" onClick={() => {
+                                    <Button color="secondary" onClick={() => {
                                         this.onDelete(event.id_event)
                                     }}>
                                         Delete this event
                                     </Button>
-                                    <Comments eventId={event.id_event}/>
+                                                </CardActions>
+                                            <Comments eventId={event.id_event}/>
+                                            </Card>
+                                        </Grid>
+                                        </Grid>
                                 </li>
                             )}
+
                     )}
                 </ul>
             </div>
