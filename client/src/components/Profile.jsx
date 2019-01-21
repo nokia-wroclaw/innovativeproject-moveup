@@ -23,7 +23,6 @@ class Profile extends Component {
             last_name: '',
             email: '',
             age: '',
-            sex: '',
             number_phone: '',
             calculatedAge: '',
             gender: 'undefined',
@@ -52,7 +51,7 @@ class Profile extends Component {
             email: this.state.email,
             password: this.state.password,
             age: this.state.age,
-            sex: this.state.sex,
+            sex: this.state.gender,
             number_phone: this.state.number_phone
         }
 
@@ -61,11 +60,12 @@ class Profile extends Component {
             this.props.history.push(`/profile`)
         })
     }
+
     getAge() {
-        var _today = new Date();
-        var _dateBirthday = new Date(this.state.age);
-        var _age = _today.getFullYear() - _dateBirthday.getFullYear();
-        var _month = _today.getMonth() - _dateBirthday.getMonth();
+        let _today = new Date();
+        let _dateBirthday = new Date(this.state.age);
+        let _age = _today.getFullYear() - _dateBirthday.getFullYear();
+        let _month = _today.getMonth() - _dateBirthday.getMonth();
         if(_month<0 || (_month === 0 && _today.getDate() < _dateBirthday.getDate()))
         {
             _age--;
@@ -87,7 +87,7 @@ class Profile extends Component {
                     email: res.email,
                     password: res.password,
                     age: res.age,
-                    sex: res.sex,
+                    gender: res.sex,
                     number_phone: res.number_phone
                 })
                 this.getAge();
@@ -97,9 +97,6 @@ class Profile extends Component {
             this.props.history.push(`/`)
         }
     }
-
-
-
     render () {
         return (
             <div className="container">
@@ -163,7 +160,7 @@ class Profile extends Component {
                             SelectProps={{
                                 native: true,
                             }}
-                            helperText="Please select your currency"
+                            helperText="xddddddddddddddd"
                             margin="normal"
                             variant="filled"
                         >
@@ -206,5 +203,4 @@ class Profile extends Component {
         )
     }
 }
-
 export default Profile

@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import {getComments,verificationComment} from "./CommentFunctions";
-import TextField from '@material-ui/core/TextField';
 import {withStyles} from "@material-ui/core";
 import Button from '@material-ui/core/Button';
 import Grid from "@material-ui/core/Grid/Grid";

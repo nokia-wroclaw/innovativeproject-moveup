@@ -6,6 +6,15 @@ import jwt_decode from "jwt-decode";
 import { withStyles } from '@material-ui/core/styles';
 import "./CreateEvent.css"
 import Grid from "@material-ui/core/Grid/Grid";
+import MaskedInput from 'react-text-mask';
+import PropTypes from 'prop-types';
+import Input from '@material-ui/core/Input';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormControl from '@material-ui/core/FormControl';
+
+
+
+
 const styles = theme => ({
     container: {
         display: 'flex',
@@ -18,21 +27,117 @@ const styles = theme => ({
     },
 });
 
+const genders = [
+    {
+        value: 'male',
+    },
+    {
+        value: 'female',
+    },
+    {
+        value: 'meaningless',
+    },
+];
+
+const typeOfSports = [
+    {
+        value: 'Football',
+    },
+    {
+        value: 'Volleyball',
+    },
+    {
+        value: 'Basketball',
+    },
+    {
+        value: 'Swimming',
+    },
+    {
+        value: 'Cycling',
+    },
+    {
+        value: 'Tennis',
+    },
+    {
+        value: 'Running',
+    },
+    {
+        value: 'Skis',
+    },
+    {
+        value: 'Paintball',
+    },
+    {
+        value: 'Board games',
+    },
+    {
+        value: 'Mountain climbing',
+    },
+    {
+        value: 'Rope climbing',
+    },
+    {
+        value: 'Hockey',
+    },
+    {
+        value: 'Skate',
+    },
+
+];
+
+function TextMaskCustom(props) {
+    const { inputRef, ...other } = props;
+
+    return (
+        <MaskedInput
+            {...other}
+            ref={ref => {
+                inputRef(ref ? ref.inputElement : null);
+            }}
+            mask={[/[1-9]/, /\d/, /\d/, /\d/,'-',/\d/,/\d/,'-',/\d/,/\d/,]}
+            placeholderChar={'\u2000'}
+            showMask
+        />
+    );
+}
+function TextMaskCustomTime(props) {
+    const { inputRef, ...other } = props;
+
+    return (
+        <MaskedInput
+            {...other}
+            ref={ref => {
+                inputRef(ref ? ref.inputElement : null);
+            }}
+            mask={[/[1-9]/, /\d/,':',/\d/,/\d/,]}
+            placeholderChar={'\u2000'}
+            showMask
+        />
+    );
+}
+TextMaskCustomTime.propTypes = {
+    inputRef: PropTypes.func.isRequired,
+};
+
+TextMaskCustom.propTypes = {
+    inputRef: PropTypes.func.isRequired,
+};
+
 class CreateEvent extends Component {
     constructor() {
         super()
         this.state = {
+            gender: 'meaningless',
+            textmask: '',
             id_user: '',
             name_event: '',
             start_point: '',
-            type_sport: '',
-            date: '',
+            type_sport: 'Football',
             time: '',
             pref_age: '',
-            pref_sex: '',
             advanced: '',
             repetition: '',
-            phone_organizer: ''
+            phone_organizer: '',
         }
 
         this.onChange = this.onChange.bind(this)
@@ -42,6 +147,12 @@ class CreateEvent extends Component {
     onChange (e) {
         this.setState({ [e.target.name]: e.target.value })
     }
+
+    handleChange = name => event => {
+        this.setState({
+            [name]: event.target.value,
+        });
+    };
 
     onSubmit (e) {
         e.preventDefault()
@@ -53,10 +164,10 @@ class CreateEvent extends Component {
             name_event: this.state.name_event,
             start_point: this.state.start_point,
             type_sport: this.state.type_sport,
-            date: this.state.date,
+            date: this.state.textmask,
             time: this.state.time,
             pref_age: this.state.pref_age,
-            pref_sex:this.state.pref_sex ,
+            pref_sex:this.state.gender ,
             advanced: this.state.advanced,
             repetition: this.state.repetition,
             phone_organizer: this.state.phone_organizer
@@ -68,6 +179,7 @@ class CreateEvent extends Component {
     }
     render () {
         const { classes } = this.props;
+        const { textmask } = this.state;
         return (
                         <form className={classes.container} noValidate autoComplete="off" onSubmit={this.onSubmit}>
                                 <Grid container direction="column"
@@ -104,40 +216,51 @@ class CreateEvent extends Component {
                                 <Grid container direction="row"
                                       justify="center" alignItems="center" spacing={24}>
                                     <Grid item>
-                                <TextField type="text"
-                                           variant="outlined"
-                                           name="type_sport"
-                                           placeholder="Enter type of sport"
-                                           value={this.state.type_sport}
-                                           onChange={this.onChange}
-                                           label="TYPE OF SPORT"
-                                           margin="normal"
-                                />
+                                        <TextField
+                                            id="filled-select-currency-native"
+                                            select
+                                            label="Type sport"
+                                            className="textField"
+                                            value={this.state.type_sport}
+                                            onChange={this.handleChange('type_sport')}
+                                            SelectProps={{
+                                                native: true,
+                                            }}
+                                            helperText="xddddddddddddddd"
+                                            margin="normal"
+                                            variant="filled"
+                                        >
+                                            {typeOfSports.map(option => (
+                                                <option key={option.value} value={option.value}>
+                                                    {option.value}
+                                                </option>
+                                            ))}
+                                        </TextField>
                                     </Grid>
                                         <Grid item>
-                                <TextField type="text"
-                                           variant="outlined"
-                                           name="date"
-                                           placeholder="Enter date"
-                                           value={this.state.date}
-                                           onChange={this.onChange}
-                                           label="DATE"
-                                           margin="normal"
-                                />
+                                            <FormControl className={classes.formControl}>
+                                                <InputLabel htmlFor="formatted-text-mask-input">Date</InputLabel>
+                                                <Input
+                                                    value={textmask}
+                                                    onChange={this.handleChange('textmask')}
+                                                    id="formatted-text-mask-input"
+                                                    inputComponent={TextMaskCustom}
+                                                />
+                                            </FormControl>
                                         </Grid>
                                 </Grid>
                                         <Grid container direction="row"
                                               justify="center" alignItems="center" spacing={24}>
                                             <Grid item>
-                                <TextField type="text"
-                                           variant="outlined"
-                                           name="time"
-                                           placeholder="Enter time"
-                                           value={this.state.time}
-                                           onChange={this.onChange}
-                                           label="TIME"
-                                           margin="normal"
-                                />
+                                                <FormControl className={classes.formControl}>
+                                                    <InputLabel htmlFor="formatted-text-mask-input">Time</InputLabel>
+                                                    <Input
+                                                        value={this.state.time}
+                                                        onChange={this.handleChange('time')}
+                                                        id="formatted-text-mask-input"
+                                                        inputComponent={TextMaskCustomTime}
+                                                    />
+                                                </FormControl>
                                             </Grid>
                                                 <Grid item>
                                 <TextField type="text"
@@ -154,15 +277,26 @@ class CreateEvent extends Component {
                                                 <Grid container direction="row"
                                                       justify="center" alignItems="center" spacing={24}>
                                                     <Grid item>
-                                <TextField type="text"
-                                           variant="outlined"
-                                           name="pref_sex"
-                                           placeholder="Enter optional sex if u must"
-                                           value={this.state.pref_sex}
-                                           onChange={this.onChange}
-                                           label="OPTIONAL SEX"
-                                           margin="normal"
-                                />
+                                                        <TextField
+                                                            id="filled-select-currency-native"
+                                                            select
+                                                            label="preff gender"
+                                                            className="textField"
+                                                            value={this.state.gender}
+                                                            onChange={this.handleChange('gender')}
+                                                            SelectProps={{
+                                                                native: true,
+                                                            }}
+                                                            helperText="xddddddddddddddd"
+                                                            margin="normal"
+                                                            variant="filled"
+                                                        >
+                                                            {genders.map(option => (
+                                                                <option key={option.value} value={option.value}>
+                                                                    {option.value}
+                                                                </option>
+                                                            ))}
+                                                        </TextField>
                                                     </Grid>
                                                         <Grid item>
                                 <TextField type="text"
