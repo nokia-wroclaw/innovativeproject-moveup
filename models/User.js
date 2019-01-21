@@ -33,7 +33,7 @@ module.exports = db.sequelize.define(
         },
         age: {
             allowNull: true,
-            type: Sequelize.INTEGER
+            type: Sequelize.DATE
         },
         sex: {
             allowNull: true,

@@ -6,6 +6,15 @@ import TextField from '@material-ui/core/TextField';
 import './Profile.css';
 import iron from '../images/ironman.jpg';
 
+const genders = [
+    {
+        value: 'male',
+    },
+    {
+        value: 'female',
+    },
+];
+
 class Profile extends Component {
     constructor() {
         super()
@@ -15,7 +24,9 @@ class Profile extends Component {
             email: '',
             age: '',
             sex: '',
-            number_phone: ''
+            number_phone: '',
+            calculatedAge: '',
+            gender: 'undefined',
         }
         this.onChange = this.onChange.bind(this)
         this.onSubmit = this.onSubmit.bind(this)
@@ -24,6 +35,12 @@ class Profile extends Component {
     onChange (e) {
         this.setState({ [e.target.name]: e.target.value })
     }
+
+    handleChange = name => event => {
+        this.setState({
+            [name]: event.target.value,
+        });
+    };
 
     onSubmit (e) {
         e.preventDefault()
@@ -44,6 +61,19 @@ class Profile extends Component {
             this.props.history.push(`/profile`)
         })
     }
+    getAge() {
+        var _today = new Date();
+        var _dateBirthday = new Date(this.state.age);
+        var _age = _today.getFullYear() - _dateBirthday.getFullYear();
+        var _month = _today.getMonth() - _dateBirthday.getMonth();
+        if(_month<0 || (_month === 0 && _today.getDate() < _dateBirthday.getDate()))
+        {
+            _age--;
+        }
+        this.setState({
+            calculatedAge: _age
+        })
+    }
 
     componentDidMount () {
         if (localStorage.usertoken) {
@@ -60,12 +90,15 @@ class Profile extends Component {
                     sex: res.sex,
                     number_phone: res.number_phone
                 })
+                this.getAge();
             })
         }else {
             console.log("error:  get into /profile without sign in  ")
             this.props.history.push(`/`)
         }
     }
+
+
 
     render () {
         return (
@@ -81,7 +114,6 @@ class Profile extends Component {
                                        variant="outlined"
                                        className="textField"
                                        name="first_name"
-                                       placeholder="First Name"
                                        value={this.state.first_name}
                                        onChange={this.onChange}
                                        label="FIRST NAME"
@@ -93,7 +125,6 @@ class Profile extends Component {
                                        variant="outlined"
                                        className="textField"
                                        name="last_name"
-                                       placeholder="Last Name"
                                        value={this.state.last_name}
                                        onChange={this.onChange}
                                        label="LAST NAME"
@@ -105,9 +136,7 @@ class Profile extends Component {
                                        variant="outlined"
                                        className="textField"
                                        name="age"
-                                       placeholder="Age"
-                                       value={this.state.age}
-                                       onChange={this.onChange}
+                                       value={this.state.calculatedAge}
                                        label="AGE"
                                        margin="normal"
                             />
@@ -116,21 +145,40 @@ class Profile extends Component {
                             <TextField type="text"
                                        variant="outlined"
                                        className="textField"
-                                       name="sex"
-                                       placeholder="Sex"
-                                       value={this.state.sex}
+                                       name="age"
+                                       value={this.state.age}
                                        onChange={this.onChange}
-                                       label="SEX"
+                                       label="DATE YOUR BIRTHDAY"
                                        margin="normal"
                             />
-
                         </div>
+
+                        <TextField
+                            id="filled-select-currency-native"
+                            select
+                            label="GENDER"
+                            className="textField"
+                            value={this.state.gender}
+                            onChange={this.handleChange('gender')}
+                            SelectProps={{
+                                native: true,
+                            }}
+                            helperText="Please select your currency"
+                            margin="normal"
+                            variant="filled"
+                        >
+                            {genders.map(option => (
+                                <option key={option.value} value={option.value}>
+                                    {option.value}
+                                </option>
+                            ))}
+                        </TextField>
+
                         <div className="form-group">
                             <TextField type="text"
                                        variant="outlined"
                                        className="textField"
                                        name="number_phone"
-                                       placeholder="Number phone"
                                        value={this.state.number_phone}
                                        onChange={this.onChange}
                                        label="NUMBER PHONE"
@@ -142,7 +190,6 @@ class Profile extends Component {
                                        variant="outlined"
                                        className="textField"
                                        name="password"
-                                       placeholder="password"
                                        value={this.state.password}
                                        onChange={this.onChange}
                                        label="PASSWORD"
