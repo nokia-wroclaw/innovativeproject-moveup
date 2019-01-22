@@ -77,8 +77,15 @@ const styles = theme => ({
 
 
      onSubmit (eventId) {
-         localStorage.setItem('userEvent', eventId)
-         this.props.history.push(`/addComment`)
+         if(localStorage.getItem('usertoken'))
+         {
+             localStorage.setItem('userEvent', eventId)
+             this.props.history.push(`/addComment`)
+         }
+         else
+         {
+             alert("U must be log in")
+         }
      }
 
     render(){

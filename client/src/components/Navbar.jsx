@@ -60,7 +60,7 @@ class Navbar extends Component {
             <AppBar position="static" className="AppBarContainer">
                 <Grid container direction="row" justify="space-between" alignItems="center" spacing={0}>
                     <Grid item >
-                        <Link to="/" >
+                        <Link to="/allEvents" >
                             <HomeIcon color="action" className="itemNav" />
                         </Link>
                     </Grid>
@@ -101,7 +101,7 @@ class Navbar extends Component {
                     <AppBar position="static" className="AppBarContainer">
                         <Grid container direction="row" justify="flex-start" alignItems="center" spacing={8}>
                             <Grid item >
-                                <Link to="/" >
+                                <Link to="/allEvents" >
                                     <HomeIcon color="action" className="itemNav" />
                                 </Link>
                             </Grid>

@@ -134,7 +134,6 @@ const typeOfSports = [
     {
         value: 'Skate',
     },
-
 ];
 
 class CreateEvent extends Component {
@@ -155,7 +154,6 @@ class CreateEvent extends Component {
             phone_organizer: '',
             open: false,
         }
-
         this.onChange = this.onChange.bind(this)
         this.onSubmit = this.onSubmit.bind(this)
     }
@@ -183,7 +181,6 @@ class CreateEvent extends Component {
 
     onSubmit (e) {
         e.preventDefault()
-
         const token = localStorage.usertoken;
         const decoded = jwt_decode(token);
         const event = {
@@ -191,27 +188,21 @@ class CreateEvent extends Component {
             name_event: this.state.name_event,
             start_point: this.state.start_point,
             type_sport: this.state.type_sport,
-            date: this.state.date.getFullYear() + '-' + this.state.date.getMonth()+1 + '-' + this.state.date.getDate(),
-            time: this.state.date.getHours() + ':' + this.state.date.getMinutes() + ':00',
+            date: this.state.date.getFullYear() + '-' + (this.state.date.getMonth()+1) + '-' + this.state.date.getDate(),
+            time: this.state.date.getHours() + ':' + this.state.date.getMinutes(),
             pref_age: this.state.pref_age,
             pref_sex:this.state.gender ,
             advanced: this.state.advanced,
             repetition: this.state.repetitionDay + ' ' +this.state.repetition,
             phone_organizer: this.state.phone_organizer
         }
-
+        console.log(event);
         registerEvent(event).then(res => {
             this.props.history.push(`/`)
         })
     }
     render () {
         const { classes } = this.props;
-        console.log(this.state.date.getFullYear())
-        console.log(this.state.date.getMonth()+1)
-        console.log(this.state.date.getDate());
-        console.log(this.state.date.getHours());
-        console.log(this.state.date.getMinutes())
-        console.log(this.state.date.getSeconds())
         return (
             <form className={classes.container} noValidate autoComplete="off" onSubmit={this.onSubmit}>
                 <Grid container direction="column"
