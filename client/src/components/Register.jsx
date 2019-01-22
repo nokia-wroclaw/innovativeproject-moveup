@@ -78,7 +78,6 @@ class Register extends Component {
             sex: this.state.gender,
             number_phone: this.state.number_phone
         }
-
         register(user).then(res => {
             this.props.history.push(`/login`)
         })

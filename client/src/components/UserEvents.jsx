@@ -26,7 +26,7 @@ const styles = theme => ({
     card: {
         width: 600,
         marginTop: theme.spacing.unit,
-        backgroundColor: '#e6f2ff',
+        backgroundColor: '#f4fcff',
     },
     media: {
         height: 0,
@@ -70,7 +70,7 @@ class UserEvents extends Component {
 
     onDelete(eventId) {
         deleteUserEvent(eventId)
-        this.props.history.push(`/editEvent`)
+        window.location.reload();
     }
 
     render() {
