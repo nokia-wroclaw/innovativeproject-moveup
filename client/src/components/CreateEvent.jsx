@@ -6,7 +6,37 @@ import jwt_decode from "jwt-decode";
 import { withStyles } from '@material-ui/core/styles';
 import "./CreateEvent.css"
 import Grid from "@material-ui/core/Grid/Grid";
+import Input from '@material-ui/core/Input';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormControl from '@material-ui/core/FormControl';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import classNames from 'classnames';
+import MenuItem from '@material-ui/core/MenuItem';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Select from '@material-ui/core/Select';
+import 'date-fns';
+import PropTypes from 'prop-types';
+import DateFnsUtils from 'date-fns';
+import { MuiPickersUtilsProvider, TimePicker, DatePicker } from 'material-ui-pickers';
+
+window.__MUI_USE_NEXT_TYPOGRAPHY_VARIANTS__ = true;
 const styles = theme => ({
+    root: {
+        display: 'flex',
+        flexWrap: 'wrap',
+    },
+    grid: {
+        width: '60%',
+    },
+    margin: {
+        margin: theme.spacing.unit,
+    },
+    withoutLabel: {
+        marginTop: theme.spacing.unit * 3,
+    },
     container: {
         display: 'flex',
         flexWrap: 'wrap',
@@ -17,22 +47,112 @@ const styles = theme => ({
         width: 200,
     },
 });
+const ranges = [
+    {
+        value: '9-14',
+        label: '9 to 14',
+    },
+    {
+        value: '12-16',
+        label: '12 to 16',
+    },
+    {
+        value: '15-19',
+        label: '15 to 19',
+    },
+    {
+        value: '17-22',
+        label: '17 to 22',
+    },
+    {
+        value: '18+',
+        label: '18+',
+    },
+    {
+        value: '16+',
+        label: '16+',
+    },
+    {
+        value: 'None',
+        label: 'None',
+    },
+];
+
+const genders = [
+    {
+        value: 'male',
+    },
+    {
+        value: 'female',
+    },
+    {
+        value: 'meaningless',
+    },
+];
+
+const typeOfSports = [
+    {
+        value: 'Football',
+    },
+    {
+        value: 'Volleyball',
+    },
+    {
+        value: 'Basketball',
+    },
+    {
+        value: 'Swimming',
+    },
+    {
+        value: 'Cycling',
+    },
+    {
+        value: 'Tennis',
+    },
+    {
+        value: 'Running',
+    },
+    {
+        value: 'Skis',
+    },
+    {
+        value: 'Paintball',
+    },
+    {
+        value: 'Board games',
+    },
+    {
+        value: 'Mountain climbing',
+    },
+    {
+        value: 'Rope climbing',
+    },
+    {
+        value: 'Hockey',
+    },
+    {
+        value: 'Skate',
+    },
+
+];
 
 class CreateEvent extends Component {
     constructor() {
         super()
         this.state = {
+            gender: 'meaningless',
+            date: new Date(),
             id_user: '',
             name_event: '',
             start_point: '',
-            type_sport: '',
-            date: '',
+            type_sport: 'Football',
             time: '',
-            pref_age: '',
-            pref_sex: '',
+            pref_age: 'None',
             advanced: '',
+            repetitionDay: '',
             repetition: '',
-            phone_organizer: ''
+            phone_organizer: '',
+            open: false,
         }
 
         this.onChange = this.onChange.bind(this)
@@ -42,6 +162,23 @@ class CreateEvent extends Component {
     onChange (e) {
         this.setState({ [e.target.name]: e.target.value })
     }
+
+    handleDateChange = date => {
+        this.setState({ date: date });
+    };
+
+    handleChange = name => event => {
+        this.setState({
+            [name]: event.target.value,
+        });
+    };
+    handleClickOpen = () => {
+        this.setState({ open: true });
+    };
+
+    handleClose = () => {
+        this.setState({ open: false });
+    };
 
     onSubmit (e) {
         e.preventDefault()
@@ -56,9 +193,9 @@ class CreateEvent extends Component {
             date: this.state.date,
             time: this.state.time,
             pref_age: this.state.pref_age,
-            pref_sex:this.state.pref_sex ,
+            pref_sex:this.state.gender ,
             advanced: this.state.advanced,
-            repetition: this.state.repetition,
+            repetition: this.state.repetitionDay + ' of ' +this.state.repetition,
             phone_organizer: this.state.phone_organizer
         }
 
@@ -68,6 +205,7 @@ class CreateEvent extends Component {
     }
     render () {
         const { classes } = this.props;
+        const { selectedDate } = this.state;
         return (
                         <form className={classes.container} noValidate autoComplete="off" onSubmit={this.onSubmit}>
                                 <Grid container direction="column"
@@ -104,65 +242,90 @@ class CreateEvent extends Component {
                                 <Grid container direction="row"
                                       justify="center" alignItems="center" spacing={24}>
                                     <Grid item>
-                                <TextField type="text"
-                                           variant="outlined"
-                                           name="type_sport"
-                                           placeholder="Enter type of sport"
-                                           value={this.state.type_sport}
-                                           onChange={this.onChange}
-                                           label="TYPE OF SPORT"
-                                           margin="normal"
-                                />
+                                        <TextField
+                                            id="filled-select-currency-native"
+                                            select
+                                            label="Type sport"
+                                            className="textField"
+                                            value={this.state.type_sport}
+                                            onChange={this.handleChange('type_sport')}
+                                            SelectProps={{
+                                                native: true,
+                                            }}
+                                            helperText="xddddddddddddddd"
+                                            margin="normal"
+                                            variant="filled"
+                                        >
+                                            {typeOfSports.map(option => (
+                                                <option key={option.value} value={option.value}>
+                                                    {option.value}
+                                                </option>
+                                            ))}
+                                        </TextField>
                                     </Grid>
                                         <Grid item>
-                                <TextField type="text"
-                                           variant="outlined"
-                                           name="date"
-                                           placeholder="Enter date"
-                                           value={this.state.date}
-                                           onChange={this.onChange}
-                                           label="DATE"
-                                           margin="normal"
-                                />
+                                            <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                                                <Grid container className={classes.grid} justify="space-around">
+                                                    <DatePicker
+                                                        margin="normal"
+                                                        label="Date picker"
+                                                        value={this.state.date}
+                                                        onChange={this.handleDateChange}
+                                                    />
+                                                    <TimePicker
+                                                        margin="normal"
+                                                        label="Time picker"
+                                                        value={this.state.time}
+                                                        onChange={this.handleDateChange}
+                                                    />
+                                                </Grid>
+                                            </MuiPickersUtilsProvider>
                                         </Grid>
                                 </Grid>
                                         <Grid container direction="row"
                                               justify="center" alignItems="center" spacing={24}>
-                                            <Grid item>
-                                <TextField type="text"
-                                           variant="outlined"
-                                           name="time"
-                                           placeholder="Enter time"
-                                           value={this.state.time}
-                                           onChange={this.onChange}
-                                           label="TIME"
-                                           margin="normal"
-                                />
-                                            </Grid>
                                                 <Grid item>
-                                <TextField type="text"
-                                           variant="outlined"
-                                           name="pref_age"
-                                           placeholder="Enter optional age if u must"
-                                           value={this.state.pref_age}
-                                           onChange={this.onChange}
-                                           label="OPTIONAL AGE"
-                                           margin="normal"
-                                />
+                                                    <TextField
+                                                        select
+                                                        label="Pref Age"
+                                                        className={classNames(classes.margin, classes.textField)}
+                                                        value={this.state.pref_age}
+                                                        onChange={this.handleChange('pref_age')}
+                                                        InputProps={{
+                                                            startAdornment: <InputAdornment position="start">Age</InputAdornment>,
+                                                        }}
+                                                    >
+                                                        {ranges.map(option => (
+                                                            <MenuItem key={option.value} value={option.value}>
+                                                                {option.label}
+                                                            </MenuItem>
+                                                        ))}
+                                                    </TextField>
                                                 </Grid>
                                         </Grid>
                                                 <Grid container direction="row"
                                                       justify="center" alignItems="center" spacing={24}>
                                                     <Grid item>
-                                <TextField type="text"
-                                           variant="outlined"
-                                           name="pref_sex"
-                                           placeholder="Enter optional sex if u must"
-                                           value={this.state.pref_sex}
-                                           onChange={this.onChange}
-                                           label="OPTIONAL SEX"
-                                           margin="normal"
-                                />
+                                                        <TextField
+                                                            id="filled-select-currency-native"
+                                                            select
+                                                            label="preff gender"
+                                                            className="textField"
+                                                            value={this.state.gender}
+                                                            onChange={this.handleChange('gender')}
+                                                            SelectProps={{
+                                                                native: true,
+                                                            }}
+                                                            helperText="xddddddddddddddd"
+                                                            margin="normal"
+                                                            variant="filled"
+                                                        >
+                                                            {genders.map(option => (
+                                                                <option key={option.value} value={option.value}>
+                                                                    {option.value}
+                                                                </option>
+                                                            ))}
+                                                        </TextField>
                                                     </Grid>
                                                         <Grid item>
                                 <TextField type="text"
@@ -179,15 +342,57 @@ class CreateEvent extends Component {
                                                         <Grid container direction="row"
                                                               justify="center" alignItems="center" spacing={24}>
                                                             <Grid item>
-                                <TextField type="text"
-                                           variant="outlined"
-                                           name="repetition"
-                                           placeholder="Enter repetition if this event is repeatable"
-                                           value={this.state.repetition}
-                                           onChange={this.onChange}
-                                           label="REPETITION"
-                                           margin="normal"
-                                />
+                                                                <div>
+                                                                    <Button onClick={this.handleClickOpen}>Open select dialog</Button>
+                                                                    <Dialog
+                                                                        disableBackdropClick
+                                                                        disableEscapeKeyDown
+                                                                        open={this.state.open}
+                                                                        onClose={this.handleClose}
+                                                                    >
+                                                                        <DialogTitle>Fill the form</DialogTitle>
+                                                                        <DialogContent>
+                                                                            <form className={classes.container}>
+                                                                                <FormControl className={classes.formControl}>
+                                                                                    <InputLabel htmlFor="age-native-simple">Frequency</InputLabel>
+                                                                                    <Select
+                                                                                        native
+                                                                                        value={this.state.repetitionDay}
+                                                                                        onChange={this.handleChange('repetitionDay')}
+                                                                                        input={<Input id="age-native-simple" />}
+                                                                                    >
+                                                                                        <option value="" />
+                                                                                        <option value={1}>Once</option>
+                                                                                        <option value={2}>Twice</option>
+                                                                                        <option value={3}>Three</option>
+                                                                                        <option value={4}>Four</option>
+                                                                                        <option value={5}>Five</option>
+                                                                                        <option value={6}>Six</option>
+                                                                                    </Select>
+                                                                                </FormControl>
+                                                                                <FormControl className={classes.formControl}>
+                                                                                    <InputLabel htmlFor="age-simple">Repetition</InputLabel>
+                                                                                    <Select
+                                                                                        value={this.state.repetition}
+                                                                                        onChange={this.handleChange('repetition')}
+                                                                                        input={<Input id="age-simple" />}
+                                                                                    >
+                                                                                        <MenuItem value={"Week"}>Week</MenuItem>
+                                                                                        <MenuItem value={"Month"}>Month</MenuItem>
+                                                                                    </Select>
+                                                                                </FormControl>
+                                                                            </form>
+                                                                        </DialogContent>
+                                                                        <DialogActions>
+                                                                            <Button onClick={this.handleClose} color="primary">
+                                                                                Cancel
+                                                                            </Button>
+                                                                            <Button onClick={this.handleClose} color="primary">
+                                                                                Ok
+                                                                            </Button>
+                                                                        </DialogActions>
+                                                                    </Dialog>
+                                                                </div>
                                                             </Grid>
 <Grid item>
                                 <TextField type="number_phone"
@@ -213,5 +418,8 @@ class CreateEvent extends Component {
         )
     }
 }
+CreateEvent.propTypes = {
+    classes: PropTypes.object.isRequired,
+};
 
 export default withStyles(styles)(CreateEvent);

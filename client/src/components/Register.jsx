@@ -4,20 +4,52 @@ import './Register.css';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Grid from "@material-ui/core/Grid/Grid";
-import AppBar from "@material-ui/core/AppBar/AppBar";
+import MaskedInput from 'react-text-mask';
+import PropTypes from 'prop-types';
+import Input from '@material-ui/core/Input';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormControl from '@material-ui/core/FormControl';
+const genders = [
+    {
+        value: 'male',
+    },
+    {
+        value: 'female',
+    },
+];
 
+function TextMaskCustom(props) {
+    const { inputRef, ...other } = props;
+
+    return (
+        <MaskedInput
+            {...other}
+            ref={ref => {
+                inputRef(ref ? ref.inputElement : null);
+            }}
+            mask={[/[1-9]/, /\d/, /\d/, /\d/,'-',/\d/,/\d/,'-',/\d/,/\d/,]}
+            placeholderChar={'\u2000'}
+            showMask
+        />
+    );
+}
+
+TextMaskCustom.propTypes = {
+    inputRef: PropTypes.func.isRequired,
+};
 
 class Register extends Component {
     constructor() {
         super()
         this.state = {
+            textmask: '',
             first_name: '',
             last_name: '',
             email: '',
             password: '',
             age: '',
-            sex: '',
             number_phone: '',
+            gender: 'male',
         }
 
         this.onChange = this.onChange.bind(this)
@@ -28,6 +60,12 @@ class Register extends Component {
         this.setState({ [e.target.name]: e.target.value })
     }
 
+    handleChange = name => event => {
+        this.setState({
+            [name]: event.target.value,
+        });
+    };
+
     onSubmit (e) {
         e.preventDefault()
 
@@ -36,17 +74,17 @@ class Register extends Component {
             last_name: this.state.last_name,
             email: this.state.email,
             password: this.state.password,
-            age: this.state.age,
-            sex: this.state.sex,
+            age: this.state.textmask,
+            sex: this.state.gender,
             number_phone: this.state.number_phone
         }
-
         register(user).then(res => {
             this.props.history.push(`/login`)
         })
     }
 
     render () {
+        const { textmask } = this.state;
         return (
                         <form noValidate onSubmit={this.onSubmit}>
                             <Grid container direction="column" justify="space-between" alignItems="center" spacing={0}>
@@ -98,26 +136,37 @@ class Register extends Component {
                                 />
                                             </Grid>
                                                 <Grid item >
-                                <TextField type="age"
-                                           variant="outlined"
-                                           name="age"
-                                           placeholder="Enter your age"
-                                           value={this.state.age}
-                                           onChange={this.onChange}
-                                           label="AGE"
-                                           margin="normal"
-                                />
+                                                    <TextField
+                                                        id="filled-select-currency-native"
+                                                        select
+                                                        label="GENDER"
+                                                        className="textField"
+                                                        value={this.state.gender}
+                                                        onChange={this.handleChange('gender')}
+                                                        SelectProps={{
+                                                            native: true,
+                                                        }}
+                                                        helperText="xddddddddddddd"
+                                                        margin="normal"
+                                                        variant="filled"
+                                                    >
+                                                        {genders.map(option => (
+                                                            <option key={option.value} value={option.value}>
+                                                                {option.value}
+                                                            </option>
+                                                        ))}
+                                                    </TextField>
                                                 </Grid>
                                                     <Grid item >
-                                <TextField type="sex"
-                                           variant="outlined"
-                                           name="sex"
-                                           placeholder="Enter your sex"
-                                           value={this.state.sex}
-                                           onChange={this.onChange}
-                                           label="SEX"
-                                           margin="normal"
-                                />
+                                                        <FormControl className={"formControl"}>
+                                                            <InputLabel htmlFor="formatted-text-mask-input">Date of your birthday</InputLabel>
+                                                            <Input
+                                                                value={textmask}
+                                                                onChange={this.handleChange('textmask')}
+                                                                id="formatted-text-mask-input"
+                                                                inputComponent={TextMaskCustom}
+                                                            />
+                                                        </FormControl>
                                                     </Grid>
                                                         <Grid item >
                                 <TextField type="number_phone"

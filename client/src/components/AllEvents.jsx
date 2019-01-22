@@ -9,10 +9,8 @@ import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Avatar from '@material-ui/core/Avatar';
-import IconButton from '@material-ui/core/IconButton';
 import blue from '@material-ui/core/colors/blue';
 import CardHeader from '@material-ui/core/CardHeader';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Typography from '@material-ui/core/Typography';
 
 const styles = theme => ({
@@ -104,6 +102,8 @@ const styles = theme => ({
                 <Grid item>
               <Card className={classes.card}>
              <Grid container direction="column" justify="center" alignItems="center" spacing={4}>
+                     </Grid>
+             <Grid container direction="row-reverse" justify="space-around" alignItems="center" spacing={8}>
                <Grid item>
                 <TextField
                     name="Search name event"
