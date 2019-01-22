@@ -97,12 +97,13 @@ const styles = theme => ({
          return (
 
 <div>
-                     <Grid container direction="row" justify="center" alignItems="center" spacing={0}>
+                     <Grid container direction="column" justify="center" alignItems="center" spacing={0}>
                          <Grid item>
                              <h1>Events</h1>
                          </Grid>
-                     </Grid>
-             <Grid container direction="row-reverse" justify="space-around" alignItems="center" spacing={4}>
+                <Grid item>
+              <Card className={classes.card}>
+             <Grid container direction="column" justify="center" alignItems="center" spacing={4}>
                <Grid item>
                 <TextField
                     name="Search name event"
@@ -131,6 +132,9 @@ const styles = theme => ({
                        onChange={this.updateSearchTypeOfSport.bind(this)} />
                  </Grid>
              </Grid>
+              </Card>
+                </Grid>
+                     </Grid>
                 <ul>
                     {filteredEvents.map(event =>
                         <li key={event.id_event}>
