@@ -19,8 +19,9 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Select from '@material-ui/core/Select';
 import 'date-fns';
 import PropTypes from 'prop-types';
-import DateFnsUtils from 'date-fns';
+import DateFnsUtils from '@date-io/date-fns';
 import { MuiPickersUtilsProvider, TimePicker, DatePicker } from 'material-ui-pickers';
+
 
 window.__MUI_USE_NEXT_TYPOGRAPHY_VARIANTS__ = true;
 const styles = theme => ({
@@ -190,12 +191,12 @@ class CreateEvent extends Component {
             name_event: this.state.name_event,
             start_point: this.state.start_point,
             type_sport: this.state.type_sport,
-            date: this.state.date,
-            time: this.state.time,
+            date: this.state.date.getFullYear() + '-' + this.state.date.getMonth()+1 + '-' + this.state.date.getDate(),
+            time: this.state.date.getHours() + ':' + this.state.date.getMinutes() + ':00',
             pref_age: this.state.pref_age,
             pref_sex:this.state.gender ,
             advanced: this.state.advanced,
-            repetition: this.state.repetitionDay + ' of ' +this.state.repetition,
+            repetition: this.state.repetitionDay + ' ' +this.state.repetition,
             phone_organizer: this.state.phone_organizer
         }
 
@@ -205,216 +206,221 @@ class CreateEvent extends Component {
     }
     render () {
         const { classes } = this.props;
-        const { selectedDate } = this.state;
+        console.log(this.state.date.getFullYear())
+        console.log(this.state.date.getMonth()+1)
+        console.log(this.state.date.getDate());
+        console.log(this.state.date.getHours());
+        console.log(this.state.date.getMinutes())
+        console.log(this.state.date.getSeconds())
         return (
-                        <form className={classes.container} noValidate autoComplete="off" onSubmit={this.onSubmit}>
-                                <Grid container direction="column"
-                                      justify="center" alignItems="center" spacing={8}>
-                           <Grid item>
-                            <h1 className="width100">Create your event</h1>
+            <form className={classes.container} noValidate autoComplete="off" onSubmit={this.onSubmit}>
+                <Grid container direction="column"
+                      justify="center" alignItems="center" spacing={8}>
+                    <Grid item>
+                        <h1 className="width100">Create your event</h1>
+                    </Grid>
+                </Grid>
+                <Grid container direction="row"
+                      justify="center" alignItems="center" spacing={24}>
+                    <Grid item>
+                        <TextField type="text"
+                                   variant="outlined"
+                                   name="name_event"
+                                   placeholder="Enter name of event"
+                                   value={this.state.name_event}
+                                   onChange={this.onChange}
+                                   label="NAME EVENT"
+                                   margin="normal"
+                        />
+                    </Grid>
+                    <Grid item>
+                        <TextField type="text"
+                                   variant="outlined"
+                                   name="start_point"
+                                   placeholder="Enter start point"
+                                   value={this.state.start_point}
+                                   onChange={this.onChange}
+                                   label="START POINT"
+                                   margin="normal"
+                        />
+                    </Grid>
+                </Grid>
+                <Grid container direction="row"
+                      justify="center" alignItems="center" spacing={24}>
+                    <Grid item>
+                        <TextField
+                            id="filled-select-currency-native"
+                            select
+                            label="Type sport"
+                            className="textField"
+                            value={this.state.type_sport}
+                            onChange={this.handleChange('type_sport')}
+                            SelectProps={{
+                                native: true,
+                            }}
+                            helperText="xddddddddddddddd"
+                            margin="normal"
+                            variant="filled"
+                        >
+                            {typeOfSports.map(option => (
+                                <option key={option.value} value={option.value}>
+                                    {option.value}
+                                </option>
+                            ))}
+                        </TextField>
+                    </Grid>
+                    <Grid item>
+                        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                            <Grid container className={classes.grid} justify="space-around">
+                                <DatePicker
+                                    margin="normal"
+                                    label="Date picker"
+                                    value={this.state.date}
+                                    onChange={this.handleDateChange}
+                                />
+                                <TimePicker
+                                    margin="normal"
+                                    label="Time picker"
+                                    value={this.state.date}
+                                    onChange={this.handleDateChange}
+                                />
                             </Grid>
-                                </Grid>
-                                <Grid container direction="row"
-                                      justify="center" alignItems="center" spacing={24}>
-                                    <Grid item>
-                            <TextField type="text"
-                                           variant="outlined"
-                                           name="name_event"
-                                           placeholder="Enter name of event"
-                                           value={this.state.name_event}
-                                           onChange={this.onChange}
-                                           label="NAME EVENT"
-                                           margin="normal"
-                                />
-                                    </Grid>
-                                    <Grid item>
-                                <TextField type="text"
-                                           variant="outlined"
-                                           name="start_point"
-                                           placeholder="Enter start point"
-                                           value={this.state.start_point}
-                                           onChange={this.onChange}
-                                           label="START POINT"
-                                           margin="normal"
-                                />
-                                    </Grid>
-                                </Grid>
-                                <Grid container direction="row"
-                                      justify="center" alignItems="center" spacing={24}>
-                                    <Grid item>
-                                        <TextField
-                                            id="filled-select-currency-native"
-                                            select
-                                            label="Type sport"
-                                            className="textField"
-                                            value={this.state.type_sport}
-                                            onChange={this.handleChange('type_sport')}
-                                            SelectProps={{
-                                                native: true,
-                                            }}
-                                            helperText="xddddddddddddddd"
-                                            margin="normal"
-                                            variant="filled"
-                                        >
-                                            {typeOfSports.map(option => (
-                                                <option key={option.value} value={option.value}>
-                                                    {option.value}
-                                                </option>
-                                            ))}
-                                        </TextField>
-                                    </Grid>
-                                        <Grid item>
-                                            <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                                                <Grid container className={classes.grid} justify="space-around">
-                                                    <DatePicker
-                                                        margin="normal"
-                                                        label="Date picker"
-                                                        value={this.state.date}
-                                                        onChange={this.handleDateChange}
-                                                    />
-                                                    <TimePicker
-                                                        margin="normal"
-                                                        label="Time picker"
-                                                        value={this.state.time}
-                                                        onChange={this.handleDateChange}
-                                                    />
-                                                </Grid>
-                                            </MuiPickersUtilsProvider>
-                                        </Grid>
-                                </Grid>
-                                        <Grid container direction="row"
-                                              justify="center" alignItems="center" spacing={24}>
-                                                <Grid item>
-                                                    <TextField
-                                                        select
-                                                        label="Pref Age"
-                                                        className={classNames(classes.margin, classes.textField)}
-                                                        value={this.state.pref_age}
-                                                        onChange={this.handleChange('pref_age')}
-                                                        InputProps={{
-                                                            startAdornment: <InputAdornment position="start">Age</InputAdornment>,
-                                                        }}
-                                                    >
-                                                        {ranges.map(option => (
-                                                            <MenuItem key={option.value} value={option.value}>
-                                                                {option.label}
-                                                            </MenuItem>
-                                                        ))}
-                                                    </TextField>
-                                                </Grid>
-                                        </Grid>
-                                                <Grid container direction="row"
-                                                      justify="center" alignItems="center" spacing={24}>
-                                                    <Grid item>
-                                                        <TextField
-                                                            id="filled-select-currency-native"
-                                                            select
-                                                            label="preff gender"
-                                                            className="textField"
-                                                            value={this.state.gender}
-                                                            onChange={this.handleChange('gender')}
-                                                            SelectProps={{
-                                                                native: true,
-                                                            }}
-                                                            helperText="xddddddddddddddd"
-                                                            margin="normal"
-                                                            variant="filled"
-                                                        >
-                                                            {genders.map(option => (
-                                                                <option key={option.value} value={option.value}>
-                                                                    {option.value}
-                                                                </option>
-                                                            ))}
-                                                        </TextField>
-                                                    </Grid>
-                                                        <Grid item>
-                                <TextField type="text"
-                                           variant="outlined"
-                                           name="advanced"
-                                           placeholder="Enter advanced if u must"
-                                           value={this.state.advanced}
-                                           onChange={this.onChange}
-                                           label="ADVANCED"
-                                           margin="normal"
-                                />
-                                                        </Grid>
-                                                </Grid>
-                                                        <Grid container direction="row"
-                                                              justify="center" alignItems="center" spacing={24}>
-                                                            <Grid item>
-                                                                <div>
-                                                                    <Button onClick={this.handleClickOpen}>Open select dialog</Button>
-                                                                    <Dialog
-                                                                        disableBackdropClick
-                                                                        disableEscapeKeyDown
-                                                                        open={this.state.open}
-                                                                        onClose={this.handleClose}
-                                                                    >
-                                                                        <DialogTitle>Fill the form</DialogTitle>
-                                                                        <DialogContent>
-                                                                            <form className={classes.container}>
-                                                                                <FormControl className={classes.formControl}>
-                                                                                    <InputLabel htmlFor="age-native-simple">Frequency</InputLabel>
-                                                                                    <Select
-                                                                                        native
-                                                                                        value={this.state.repetitionDay}
-                                                                                        onChange={this.handleChange('repetitionDay')}
-                                                                                        input={<Input id="age-native-simple" />}
-                                                                                    >
-                                                                                        <option value="" />
-                                                                                        <option value={1}>Once</option>
-                                                                                        <option value={2}>Twice</option>
-                                                                                        <option value={3}>Three</option>
-                                                                                        <option value={4}>Four</option>
-                                                                                        <option value={5}>Five</option>
-                                                                                        <option value={6}>Six</option>
-                                                                                    </Select>
-                                                                                </FormControl>
-                                                                                <FormControl className={classes.formControl}>
-                                                                                    <InputLabel htmlFor="age-simple">Repetition</InputLabel>
-                                                                                    <Select
-                                                                                        value={this.state.repetition}
-                                                                                        onChange={this.handleChange('repetition')}
-                                                                                        input={<Input id="age-simple" />}
-                                                                                    >
-                                                                                        <MenuItem value={"Week"}>Week</MenuItem>
-                                                                                        <MenuItem value={"Month"}>Month</MenuItem>
-                                                                                    </Select>
-                                                                                </FormControl>
-                                                                            </form>
-                                                                        </DialogContent>
-                                                                        <DialogActions>
-                                                                            <Button onClick={this.handleClose} color="primary">
-                                                                                Cancel
-                                                                            </Button>
-                                                                            <Button onClick={this.handleClose} color="primary">
-                                                                                Ok
-                                                                            </Button>
-                                                                        </DialogActions>
-                                                                    </Dialog>
-                                                                </div>
-                                                            </Grid>
-<Grid item>
-                                <TextField type="number_phone"
-                                           variant="outlined"
-                                           name="phone_organizer"
-                                           placeholder="Enter  number phone to organizer if u have"
-                                           value={this.state.phone_organizer}
-                                           onChange={this.onChange}
-                                           label="NUMBER PHONE TO ORGANIZER"
-                                           margin="normal"
-                                />
-                                                            </Grid>
-                                                        </Grid>
-                                                                <Grid container direction="column"
-                                                                      justify="space-around" alignItems="center" spacing={24}>
-                                                                    <Grid item>
-                            <Button type="submit" variant="contained" color="primary" >
-                                Create new event
-                            </Button>
-                                                                    </Grid>
-                                                                </Grid>
-                        </form>
+                        </MuiPickersUtilsProvider>
+                    </Grid>
+                </Grid>
+                <Grid container direction="row"
+                      justify="center" alignItems="center" spacing={24}>
+                    <Grid item>
+                        <TextField
+                            select
+                            label="Pref Age"
+                            className={classNames(classes.margin, classes.textField)}
+                            value={this.state.pref_age}
+                            onChange={this.handleChange('pref_age')}
+                            InputProps={{
+                                startAdornment: <InputAdornment position="start">Age</InputAdornment>,
+                            }}
+                        >
+                            {ranges.map(option => (
+                                <MenuItem key={option.value} value={option.value}>
+                                    {option.label}
+                                </MenuItem>
+                            ))}
+                        </TextField>
+                    </Grid>
+                </Grid>
+                <Grid container direction="row"
+                      justify="center" alignItems="center" spacing={24}>
+                    <Grid item>
+                        <TextField
+                            id="filled-select-currency-native"
+                            select
+                            label="preff gender"
+                            className="textField"
+                            value={this.state.gender}
+                            onChange={this.handleChange('gender')}
+                            SelectProps={{
+                                native: true,
+                            }}
+                            helperText="xddddddddddddddd"
+                            margin="normal"
+                            variant="filled"
+                        >
+                            {genders.map(option => (
+                                <option key={option.value} value={option.value}>
+                                    {option.value}
+                                </option>
+                            ))}
+                        </TextField>
+                    </Grid>
+                    <Grid item>
+                        <TextField type="text"
+                                   variant="outlined"
+                                   name="advanced"
+                                   placeholder="Enter advanced if u must"
+                                   value={this.state.advanced}
+                                   onChange={this.onChange}
+                                   label="ADVANCED"
+                                   margin="normal"
+                        />
+                    </Grid>
+                </Grid>
+                <Grid container direction="row"
+                      justify="center" alignItems="center" spacing={24}>
+                    <Grid item>
+                        <div>
+                            <Button onClick={this.handleClickOpen}>Open select dialog</Button>
+                            <Dialog
+                                disableBackdropClick
+                                disableEscapeKeyDown
+                                open={this.state.open}
+                                onClose={this.handleClose}
+                            >
+                                <DialogTitle>Fill the form</DialogTitle>
+                                <DialogContent>
+                                    <form className={classes.container}>
+                                        <FormControl className={classes.formControl}>
+                                            <InputLabel htmlFor="age-native-simple">Frequency</InputLabel>
+                                            <Select
+                                                native
+                                                value={this.state.repetitionDay}
+                                                onChange={this.handleChange('repetitionDay')}
+                                                input={<Input id="age-native-simple" />}
+                                            >
+                                                <option value="" />
+                                                <option value={1}>Once</option>
+                                                <option value={2}>Twice</option>
+                                                <option value={3}>Three</option>
+                                                <option value={4}>Four</option>
+                                                <option value={5}>Five</option>
+                                                <option value={6}>Six</option>
+                                            </Select>
+                                        </FormControl>
+                                        <FormControl className={classes.formControl}>
+                                            <InputLabel htmlFor="age-simple">Repetition</InputLabel>
+                                            <Select
+                                                value={this.state.repetition}
+                                                onChange={this.handleChange('repetition')}
+                                                input={<Input id="age-simple" />}
+                                            >
+                                                <MenuItem value={"Week"}>Week</MenuItem>
+                                                <MenuItem value={"Month"}>Month</MenuItem>
+                                            </Select>
+                                        </FormControl>
+                                    </form>
+                                </DialogContent>
+                                <DialogActions>
+                                    <Button onClick={this.handleClose} color="primary">
+                                        Cancel
+                                    </Button>
+                                    <Button onClick={this.handleClose} color="primary">
+                                        Ok
+                                    </Button>
+                                </DialogActions>
+                            </Dialog>
+                        </div>
+                    </Grid>
+                    <Grid item>
+                        <TextField type="number_phone"
+                                   variant="outlined"
+                                   name="phone_organizer"
+                                   placeholder="Enter  number phone to organizer if u have"
+                                   value={this.state.phone_organizer}
+                                   onChange={this.onChange}
+                                   label="NUMBER PHONE TO ORGANIZER"
+                                   margin="normal"
+                        />
+                    </Grid>
+                </Grid>
+                <Grid container direction="column"
+                      justify="space-around" alignItems="center" spacing={24}>
+                    <Grid item>
+                        <Button type="submit" variant="contained" color="primary" >
+                            Create new event
+                        </Button>
+                    </Grid>
+                </Grid>
+            </form>
         )
     }
 }
