@@ -21,6 +21,7 @@ import 'date-fns';
 import PropTypes from 'prop-types';
 import DateFnsUtils from '@date-io/date-fns';
 import { MuiPickersUtilsProvider, TimePicker, DatePicker } from 'material-ui-pickers';
+import GoogleMap from "./GoogleMap"
 
 
 window.__MUI_USE_NEXT_TYPOGRAPHY_VARIANTS__ = true;
@@ -202,9 +203,8 @@ class CreateEvent extends Component {
         })
     }
     render () {
-        const { classes } = this.props;
         return (
-            <form className={classes.container} noValidate autoComplete="off" onSubmit={this.onSubmit}>
+            <form className={"container"} noValidate autoComplete="off" onSubmit={this.onSubmit}>
                 <Grid container direction="column"
                       justify="center" alignItems="center" spacing={8}>
                     <Grid item>
@@ -262,7 +262,7 @@ class CreateEvent extends Component {
                     </Grid>
                     <Grid item>
                         <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                            <Grid container className={classes.grid} justify="space-around">
+                            <Grid container className={"grid"} justify="space-around">
                                 <DatePicker
                                     margin="normal"
                                     label="Date picker"
@@ -285,7 +285,7 @@ class CreateEvent extends Component {
                         <TextField
                             select
                             label="Pref Age"
-                            className={classNames(classes.margin, classes.textField)}
+                            className={classNames("smth")}
                             value={this.state.pref_age}
                             onChange={this.handleChange('pref_age')}
                             InputProps={{
@@ -349,8 +349,8 @@ class CreateEvent extends Component {
                             >
                                 <DialogTitle>Fill the form</DialogTitle>
                                 <DialogContent>
-                                    <form className={classes.container}>
-                                        <FormControl className={classes.formControl}>
+                                    <form className={"container"}>
+                                        <FormControl className={"formControl"}>
                                             <InputLabel htmlFor="age-native-simple">Frequency</InputLabel>
                                             <Select
                                                 native
@@ -367,7 +367,7 @@ class CreateEvent extends Component {
                                                 <option value={6}>Six</option>
                                             </Select>
                                         </FormControl>
-                                        <FormControl className={classes.formControl}>
+                                        <FormControl className={"formControl"}>
                                             <InputLabel htmlFor="age-simple">Repetition</InputLabel>
                                             <Select
                                                 value={this.state.repetition}
@@ -411,6 +411,7 @@ class CreateEvent extends Component {
                         </Button>
                     </Grid>
                 </Grid>
+                <GoogleMap/>
             </form>
         )
     }

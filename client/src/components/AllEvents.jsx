@@ -12,6 +12,8 @@ import Avatar from '@material-ui/core/Avatar';
 import blue from '@material-ui/core/colors/blue';
 import CardHeader from '@material-ui/core/CardHeader';
 import Typography from '@material-ui/core/Typography';
+import {addComment} from "./CommentFunctions";
+
 
 const styles = theme => ({
     container: {
@@ -55,8 +57,12 @@ const styles = theme => ({
              searchNameEvent: '',
              searchStartPoint: '',
              searchTypeOfSport: '',
-             events: []
+             events: [],
+             id_user: '',
+             text: [],
          }
+         this.onChange = this.onChange.bind(this)
+         this.onSubmit = this.onSubmit.bind(this)
      }
 
     componentDidMount(){
@@ -74,17 +80,26 @@ const styles = theme => ({
      updateSearchTypeOfSport(event) {
          this.setState({searchTypeOfSport: event.target.value.substr(0,20)})
      }
-
+     onChange(e) {
+         this.setState({[e.target.name]: e.target.value})
+     }
 
      onSubmit (eventId) {
          if(localStorage.getItem('usertoken'))
          {
-             localStorage.setItem('userEvent', eventId)
-             this.props.history.push(`/addComment`)
+             const comment = {
+                 id_user: this.state.id_user,
+                 id_event: eventId,
+                 text: this.state.text,
+             };
+             addComment(comment).then(res => {
+                 this.props.history.push(`/allEvents`)
+             })
          }
          else
          {
              alert("U must be log in")
+             this.props.history.push(`/allEvents`)
          }
      }
 
@@ -100,7 +115,6 @@ const styles = theme => ({
                 }
             )
          return (
-
 <div>
                      <Grid container direction="row" justify="center" alignItems="center" spacing={0}>
                          <Grid item>
@@ -167,6 +181,18 @@ const styles = theme => ({
                                     onClick={() => {this.onSubmit(event.id_event)}}>
                                 Comment
                             </Button>
+                                <div className="form-group">
+                                    <TextField type="text"
+                                               variant="outlined"
+                                               className="textField3"
+                                               name="text"
+                                               placeholder="Enter  your comment"
+                                               value={this.state.text[event.id_event]}
+                                               onChange={this.onChange}
+                                               label="comment"
+                                               margin="normal"
+                                    />
+                                </div>
                             </CardActions>
                         <ViewCommentsInAllEvents eventId={event.id_event}/>
                         </Card>
@@ -177,9 +203,6 @@ const styles = theme => ({
                 </ul>
 </div>
         )
-
     }
-
-
 }
 export default withStyles(styles)(AllEvents);
