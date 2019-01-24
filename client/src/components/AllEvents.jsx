@@ -217,14 +217,14 @@ const styles = theme => ({
          return (
 
 <div>
-                     <Grid container direction="row" justify="center" alignItems="center" spacing={0}>
+    <Grid container direction="column" justify="space-around" alignItems="center" spacing={32}>
                          <Grid item>
-                             <h1>Events</h1>
+                             <Typography variant="h4" component="h4">Events</Typography>
                          </Grid>
-                     </Grid>
-             <Grid container direction="column" justify="space-around" alignItems="center" spacing={8}>
                <Grid item>
-                <TextField
+                   <Grid container direction="row" justify="space-around" alignItems="center" spacing={8}>
+                   <Grid item>
+                       <TextField
                     name="Search name event"
                        placeholder="Search by name event"
                            variant={"outlined"}
@@ -241,6 +241,8 @@ const styles = theme => ({
                        value={this.state.searchStartPoint}
                        onChange={this.updateSearchStartPoint.bind(this)} />
                  </Grid>
+               </Grid>
+               </Grid>
                  <Grid item>
                  <div className={classes.root}>
                      <Paper square elevation={0} className={classes.header}>

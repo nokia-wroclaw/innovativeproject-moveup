@@ -21,6 +21,7 @@ import 'date-fns';
 import PropTypes from 'prop-types';
 import DateFnsUtils from '@date-io/date-fns';
 import { MuiPickersUtilsProvider, TimePicker, DatePicker } from 'material-ui-pickers';
+import Typography from "@material-ui/core/Typography/Typography";
 
 
 window.__MUI_USE_NEXT_TYPOGRAPHY_VARIANTS__ = true;
@@ -205,17 +206,15 @@ class CreateEvent extends Component {
         const { classes } = this.props;
         return (
             <form className={classes.container} noValidate autoComplete="off" onSubmit={this.onSubmit}>
-                <Grid container direction="column"
-                      justify="center" alignItems="center" spacing={8}>
+                <Grid container direction="column" justify="center" alignItems="center" spacing={8}>
                     <Grid item>
-                        <h1 className="width100">Create your event</h1>
+                        <Typography variant="h4" component="h4">Create your events</Typography>
                     </Grid>
-                </Grid>
-                <Grid container direction="row"
-                      justify="center" alignItems="center" spacing={24}>
+                <Grid item>
+
+                <Grid container direction="row" justify="center" alignItems="center" spacing={24}>
                     <Grid item>
                         <TextField type="text"
-                                   variant="outlined"
                                    name="name_event"
                                    placeholder="Enter name of event"
                                    value={this.state.name_event}
@@ -226,7 +225,6 @@ class CreateEvent extends Component {
                     </Grid>
                     <Grid item>
                         <TextField type="text"
-                                   variant="outlined"
                                    name="start_point"
                                    placeholder="Enter start point"
                                    value={this.state.start_point}
@@ -236,22 +234,19 @@ class CreateEvent extends Component {
                         />
                     </Grid>
                 </Grid>
-                <Grid container direction="row"
-                      justify="center" alignItems="center" spacing={24}>
+                </Grid>
+                    <Grid item>
+                <Grid container direction="row" justify="center" alignItems="center" spacing={24}>
                     <Grid item>
                         <TextField
-                            id="filled-select-currency-native"
                             select
                             label="Type sport"
-                            className="textField"
                             value={this.state.type_sport}
                             onChange={this.handleChange('type_sport')}
                             SelectProps={{
                                 native: true,
                             }}
-                            helperText="xddddddddddddddd"
                             margin="normal"
-                            variant="filled"
                         >
                             {typeOfSports.map(option => (
                                 <option key={option.value} value={option.value}>
@@ -261,14 +256,37 @@ class CreateEvent extends Component {
                         </TextField>
                     </Grid>
                     <Grid item>
+                    <TextField
+                        select
+                        label="Pref Age"
+                        className={classNames(classes.margin, classes.textField)}
+                        value={this.state.pref_age}
+                        onChange={this.handleChange('pref_age')}
+                        InputProps={{
+                            startAdornment: <InputAdornment position="start">Age</InputAdornment>,
+                        }}
+                    >
+                        {ranges.map(option => (
+                            <MenuItem key={option.value} value={option.value}>
+                                {option.label}
+                            </MenuItem>
+                        ))}
+                    </TextField>
+                    </Grid>
+                </Grid>
+                    </Grid>
+                    <Grid item>
                         <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                            <Grid container className={classes.grid} justify="space-around">
+                            <Grid container direction="row" justify="enter" alignItems="center" spacing={24}>
+                               <Grid item>
                                 <DatePicker
                                     margin="normal"
                                     label="Date picker"
                                     value={this.state.date}
                                     onChange={this.handleDateChange}
                                 />
+                               </Grid>
+                            <Grid item>
                                 <TimePicker
                                     margin="normal"
                                     label="Time picker"
@@ -276,46 +294,21 @@ class CreateEvent extends Component {
                                     onChange={this.handleDateChange}
                                 />
                             </Grid>
+                            </Grid>
                         </MuiPickersUtilsProvider>
                     </Grid>
-                </Grid>
-                <Grid container direction="row"
-                      justify="center" alignItems="center" spacing={24}>
+                <Grid item>
+                <Grid container direction="row" justify="center" alignItems="center" spacing={24}>
                     <Grid item>
                         <TextField
-                            select
-                            label="Pref Age"
-                            className={classNames(classes.margin, classes.textField)}
-                            value={this.state.pref_age}
-                            onChange={this.handleChange('pref_age')}
-                            InputProps={{
-                                startAdornment: <InputAdornment position="start">Age</InputAdornment>,
-                            }}
-                        >
-                            {ranges.map(option => (
-                                <MenuItem key={option.value} value={option.value}>
-                                    {option.label}
-                                </MenuItem>
-                            ))}
-                        </TextField>
-                    </Grid>
-                </Grid>
-                <Grid container direction="row"
-                      justify="center" alignItems="center" spacing={24}>
-                    <Grid item>
-                        <TextField
-                            id="filled-select-currency-native"
                             select
                             label="preff gender"
-                            className="textField"
                             value={this.state.gender}
                             onChange={this.handleChange('gender')}
                             SelectProps={{
                                 native: true,
                             }}
-                            helperText="xddddddddddddddd"
                             margin="normal"
-                            variant="filled"
                         >
                             {genders.map(option => (
                                 <option key={option.value} value={option.value}>
@@ -326,7 +319,6 @@ class CreateEvent extends Component {
                     </Grid>
                     <Grid item>
                         <TextField type="text"
-                                   variant="outlined"
                                    name="advanced"
                                    placeholder="Enter advanced if u must"
                                    value={this.state.advanced}
@@ -336,8 +328,9 @@ class CreateEvent extends Component {
                         />
                     </Grid>
                 </Grid>
-                <Grid container direction="row"
-                      justify="center" alignItems="center" spacing={24}>
+                </Grid>
+                <Grid item>
+                <Grid container direction="row" justify="center" alignItems="center" spacing={24}>
                     <Grid item>
                         <div>
                             <Button onClick={this.handleClickOpen}>Open select dialog</Button>
@@ -393,7 +386,6 @@ class CreateEvent extends Component {
                     </Grid>
                     <Grid item>
                         <TextField type="number_phone"
-                                   variant="outlined"
                                    name="phone_organizer"
                                    placeholder="Enter  number phone to organizer if u have"
                                    value={this.state.phone_organizer}
@@ -403,13 +395,14 @@ class CreateEvent extends Component {
                         />
                     </Grid>
                 </Grid>
-                <Grid container direction="column"
-                      justify="space-around" alignItems="center" spacing={24}>
+                </Grid>
+                <Grid container direction="row" justify="space-around" alignItems="center" spacing={24}>
                     <Grid item>
                         <Button type="submit" variant="contained" color="primary" >
                             Create new event
                         </Button>
                     </Grid>
+                </Grid>
                 </Grid>
             </form>
         )

@@ -11,6 +11,7 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import FormControl from '@material-ui/core/FormControl';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import Typography from "@material-ui/core/Typography/Typography";
 
 class Login extends Component {
     constructor() {
@@ -59,18 +60,17 @@ class Login extends Component {
         return (
 
                         <form noValidate onSubmit={this.onSubmit}>
-                            <Grid container direction="column" justify="space-around" alignItems="center" spacing={8}>
+                                <Grid container direction="column" justify="center" alignItems="center" spacing={40}>
                                 <Grid item>
-                            <h1 className="textCenter2">Please sign in</h1>
+                                    <Typography variant="h4" component="h4">Please sign in</Typography>
                                 </Grid>
                                 <Grid item>
                                 <TextField type="email"
-                                           variant="outlined"
                                            name="email"
                                            placeholder="Enter Email"
                                            value={this.state.email}
                                            onChange={this.onChange}
-                                           label="EMAIL"
+                                           label="Email"
                                            margin="normal"
                                 />
                                 </Grid>

@@ -5,6 +5,15 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import './Profile.css';
 import iron from '../images/ironman.jpg';
+import Typography from "@material-ui/core/Typography/Typography";
+import blue from "@material-ui/core/colors/blue";
+import Grid from '@material-ui/core/Grid';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import {withStyles} from "@material-ui/core";
+import CardActionArea from '@material-ui/core/CardActionArea';
+import CardMedia from '@material-ui/core/CardMedia';
 
 const genders = [
     {
@@ -14,6 +23,57 @@ const genders = [
         value: 'female',
     },
 ];
+
+const styles = theme => ({
+    container: {
+        display: 'flex',
+        flexWrap: 'wrap',
+    },
+    textField: {
+        marginLeft: theme.spacing.unit,
+        marginRight: theme.spacing.unit,
+        width: 200,
+    },
+    card: {
+        width: 600,
+        marginTop: theme.spacing.unit,
+        backgroundColor: '',
+    },
+    media: {
+        height: 500,
+    },
+    expand: {
+        transform: 'rotate(0deg)',
+        marginLeft: 'auto',
+        transition: theme.transitions.create('transform', {
+            duration: theme.transitions.duration.shortest,
+        }),
+    },
+    expandOpen: {
+        transform: 'rotate(180deg)',
+    },
+    avatar: {
+        backgroundColor: blue[500],
+    },
+    root: {
+        maxWidth: 400,
+        flexGrow: 1,
+    },
+    header: {
+        display: 'flex',
+        alignItems: 'center',
+        height: 50,
+        paddingLeft: theme.spacing.unit * 4,
+        backgroundColor: theme.palette.background.default,
+    },
+    img: {
+        height: 255,
+        maxWidth: 400,
+        overflow: 'hidden',
+        display: 'block',
+        width: '100%',
+    },
+});
 
 class Profile extends Component {
     constructor() {
@@ -98,109 +158,132 @@ class Profile extends Component {
         }
     }
     render () {
+        const { classes} = this.props;
         return (
-            <div className="container">
-                <div className="jumbotron mt-5">
                     <form noValidate onSubmit={this.onSubmit}>
-                        <div className="col-sm-8 mx-auto">
-                            <h1 className="textCenter">PROFILE</h1>
-                        </div>
-                        <img src={iron} className="iron" alt="logo" align="left" />
-                        <div className="form-group">
-                            <TextField type="text"
-                                       variant="outlined"
-                                       className="textField"
-                                       name="first_name"
-                                       value={this.state.first_name}
-                                       onChange={this.onChange}
-                                       label="FIRST NAME"
-                                       margin="normal"
-                            />
-                        </div>
-                        <div className="form-group">
-                            <TextField type="text"
-                                       variant="outlined"
-                                       className="textField"
-                                       name="last_name"
-                                       value={this.state.last_name}
-                                       onChange={this.onChange}
-                                       label="LAST NAME"
-                                       margin="normal"
-                            />
-                        </div>
-                        <div className="form-group">
-                            <TextField type="text"
-                                       variant="outlined"
-                                       className="textField"
-                                       name="age"
-                                       value={this.state.calculatedAge}
-                                       label="AGE"
-                                       margin="normal"
-                            />
-                        </div>
-                        <div className="form-group">
-                            <TextField type="text"
-                                       variant="outlined"
-                                       className="textField"
-                                       name="age"
-                                       value={this.state.age}
-                                       onChange={this.onChange}
-                                       label="DATE YOUR BIRTHDAY"
-                                       margin="normal"
-                            />
-                        </div>
+                        <Grid container direction="column" justify="center" alignItems="center" spacing={40}>
+                            <Grid item>
+                        <Card className={classes.card}>
 
-                        <TextField
-                            id="filled-select-currency-native"
-                            select
-                            label="GENDER"
-                            className="textField"
-                            value={this.state.gender}
-                            onChange={this.handleChange('gender')}
-                            SelectProps={{
-                                native: true,
-                            }}
-                            helperText="xddddddddddddddd"
-                            margin="normal"
-                            variant="filled"
-                        >
-                            {genders.map(option => (
-                                <option key={option.value} value={option.value}>
-                                    {option.value}
-                                </option>
-                            ))}
-                        </TextField>
-
-                        <div className="form-group">
-                            <TextField type="text"
-                                       variant="outlined"
-                                       className="textField"
-                                       name="number_phone"
-                                       value={this.state.number_phone}
-                                       onChange={this.onChange}
-                                       label="NUMBER PHONE"
-                                       margin="normal"
-                            />
-                        </div>
-                        <div className="form-group">
-                            <TextField type="text"
-                                       variant="outlined"
-                                       className="textField"
-                                       name="password"
-                                       value={this.state.password}
-                                       onChange={this.onChange}
-                                       label="PASSWORD"
-                                       margin="normal"
-                            />
-                        </div>
-                        <Button className="button1" type="submit" variant="contained" color="primary" >
-                            Edit our profile
-                        </Button>
-
+                                <CardMedia
+                                    className={classes.media}
+                                    image={iron}
+                                    title="Iron man"
+                                />
+                                <CardContent>
+                                    <Typography gutterBottom variant="h5" component="h2">
+                                    Profile
+                                    </Typography>
+                                    <Grid container direction="column" justify="center" alignItems="center" spacing={0}>
+                                        <Grid item>
+                                            <Grid container direction="row" justify="center" alignItems="center" spacing={16}>
+                                                <Grid item>
+                                    <TextField type="text"
+                                               variant="outlined"
+                                               className="textField"
+                                               name="first_name"
+                                               value={this.state.first_name}
+                                               onChange={this.onChange}
+                                               label="FIRST NAME"
+                                               margin="normal"
+                                    />
+                                                </Grid>
+                                                <Grid item>
+                                    <TextField type="text"
+                                               variant="outlined"
+                                               className="textField"
+                                               name="last_name"
+                                               value={this.state.last_name}
+                                               onChange={this.onChange}
+                                               label="LAST NAME"
+                                               margin="normal"
+                                    />
+                                                </Grid>
+                                            </Grid>
+                                        </Grid>
+                                        <Grid item>
+                                            <Grid container direction="row" justify="center" alignItems="center" spacing={16}>
+                                                <Grid item>
+                                        <TextField type="text"
+                                               variant="outlined"
+                                               className="textField"
+                                               name="age"
+                                               value={this.state.calculatedAge}
+                                               label="AGE"
+                                               margin="normal"
+                                    />
+                                                </Grid>
+                                                    <Grid item>
+                                    <TextField type="text"
+                                               variant="outlined"
+                                               className="textField"
+                                               name="age"
+                                               value={this.state.age}
+                                               onChange={this.onChange}
+                                               label="DATE YOUR BIRTHDAY"
+                                               margin="normal"
+                                    />
+                                                    </Grid>
+                                                </Grid>
+                                        </Grid>
+                                        <Grid item>
+                                            <Grid container direction="row" justify="center" alignItems="center" spacing={16}>
+                                                <Grid item>
+                                    <TextField type="text"
+                                               variant="outlined"
+                                               className="textField"
+                                               name="number_phone"
+                                               value={this.state.number_phone}
+                                               onChange={this.onChange}
+                                               label="NUMBER PHONE"
+                                               margin="normal"
+                                    />
+                                                </Grid>
+                                                    <Grid item>
+                                    <TextField type="text"
+                                               variant="outlined"
+                                               className="textField"
+                                               name="password"
+                                               value={this.state.password}
+                                               onChange={this.onChange}
+                                               label="PASSWORD"
+                                               margin="normal"
+                                    />
+                                                    </Grid>
+                                            </Grid>
+                                        </Grid>
+                                        <Grid item>
+                                            <TextField
+                                                variant="outlined"
+                                                select
+                                                label="GENDER"
+                                                className="textField"
+                                                value={this.state.gender}
+                                                onChange={this.handleChange('gender')}
+                                                SelectProps={{
+                                                    native: true,
+                                                }}
+                                                margin="normal"
+                                            >
+                                                {genders.map(option => (
+                                                    <option key={option.value} value={option.value}>
+                                                        {option.value}
+                                                    </option>
+                                                ))}
+                                            </TextField>
+                                        </Grid>
+                                    </Grid>
+                                </CardContent>
+                            <CardActions>
+                                <Button type="submit"  color="primary" >
+                                    Edit our profile
+                                </Button>
+                            </CardActions>
+                        </Card>
+                            </Grid>
+                        </Grid>
                     </form>
-                </div>
-            </div>
         )
     }
 }
-export default Profile
+export default  withStyles(styles)(Profile)
