@@ -21,7 +21,7 @@ import 'date-fns';
 import PropTypes from 'prop-types';
 import DateFnsUtils from '@date-io/date-fns';
 import { MuiPickersUtilsProvider, TimePicker, DatePicker } from 'material-ui-pickers';
-import GoogleMap from "./GoogleMap"
+import SimpleExample from "./Leaflet"
 
 
 window.__MUI_USE_NEXT_TYPOGRAPHY_VARIANTS__ = true;
@@ -411,7 +411,7 @@ class CreateEvent extends Component {
                         </Button>
                     </Grid>
                 </Grid>
-                <GoogleMap/>
+                <SimpleExample/>
             </form>
         )
     }
