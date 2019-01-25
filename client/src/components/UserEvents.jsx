@@ -78,8 +78,12 @@ class UserEvents extends Component {
         let filteredEvents = this.state.events;
         return (
             <div>
-                <h1>Your events</h1>
-                <ul>
+                <Grid container direction="column" justify="center" alignItems="center" spacing={32}>
+                    <Grid item>
+                <Typography variant="h4" component="h4">Your events</Typography>
+                    </Grid>
+                    <Grid item>
+                        <ul>
                     {filteredEvents.map(event => {
                             return (
                                 <li key={event.id_event}>
@@ -127,6 +131,8 @@ class UserEvents extends Component {
 
                     )}
                 </ul>
+                    </Grid>
+                </Grid>
             </div>
         )
     }

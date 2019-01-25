@@ -12,6 +12,87 @@ import Avatar from '@material-ui/core/Avatar';
 import blue from '@material-ui/core/colors/blue';
 import CardHeader from '@material-ui/core/CardHeader';
 import Typography from '@material-ui/core/Typography';
+import MobileStepper from '@material-ui/core/MobileStepper';
+import Paper from '@material-ui/core/Paper';
+import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
+import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
+import PropTypes from 'prop-types';
+
+
+
+
+const tutorialSteps = [
+    {
+        label: 'Football',
+        imgPath:
+            'https://cdn.pixabay.com/photo/2015/03/30/12/39/soccer-698553_960_720.jpg',
+    },
+    {
+        label: 'Volleyball',
+        imgPath:
+            'https://cdn.pixabay.com/photo/2014/10/23/16/57/volleyball-499983_960_720.jpg',
+    },
+    {
+        label: 'Basketball',
+        imgPath:
+            'https://cdn.pixabay.com/photo/2016/11/18/22/10/ball-1837119_960_720.jpg',
+    },
+    {
+        label: 'Swimming',
+        imgPath:
+            'https://cdn.pixabay.com/photo/2018/02/23/23/21/pool-3176973_960_720.jpg',
+    },
+    {
+        label: 'Cycling',
+        imgPath:
+            'https://cdn.pixabay.com/photo/2016/02/19/11/23/bicycle-1209682_960_720.jpg',
+    },
+    {
+        label: 'Tennis',
+        imgPath:
+            'https://cdn.pixabay.com/photo/2016/09/15/15/27/tennis-court-1671852_960_720.jpg',
+    },
+    {
+        label: 'Running',
+        imgPath:
+            'https://cdn.pixabay.com/photo/2017/05/25/15/08/jogging-2343558_960_720.jpg',
+    },
+    {
+        label: 'Skis',
+        imgPath:
+            'https://cdn.pixabay.com/photo/2016/10/31/10/50/skis-1785285_960_720.jpg',
+    },
+    {
+        label: 'Paintball',
+        imgPath:
+            'https://cdn.pixabay.com/photo/2016/03/25/14/19/paintball-1278898_960_720.jpg',
+    },
+    {
+        label: 'Board games',
+        imgPath:
+            'https://cdn.pixabay.com/photo/2018/01/04/19/57/competition-3061509_960_720.jpg',
+    },
+    {
+        label: 'Mountain climbing',
+        imgPath:
+            'https://cdn.pixabay.com/photo/2016/02/19/10/18/summit-1209168_960_720.jpg',
+    },
+    {
+        label: 'Rope climbing',
+        imgPath:
+            'https://cdn.pixabay.com/photo/2015/10/03/20/52/cliff-970348_960_720.jpg',
+    },
+    {
+        label: 'Hockey',
+        imgPath:
+            'https://cdn.pixabay.com/photo/2015/12/09/04/36/ice-hockey-1084197_960_720.jpg',
+    },
+    {
+        label: 'Skate',
+        imgPath:
+            'https://cdn.pixabay.com/photo/2017/01/23/08/52/skates-2001797_960_720.jpg',
+    },
+];
 
 const styles = theme => ({
     container: {
@@ -45,6 +126,24 @@ const styles = theme => ({
         avatar: {
             backgroundColor: blue[500],
         },
+         root: {
+            maxWidth: 400,
+            flexGrow: 1,
+         },
+         header: {
+             display: 'flex',
+             alignItems: 'center',
+             height: 50,
+             paddingLeft: theme.spacing.unit * 4,
+             backgroundColor: theme.palette.background.default,
+    },
+    img: {
+        height: 255,
+        maxWidth: 400,
+        overflow: 'hidden',
+        display: 'block',
+        width: '100%',
+    },
 });
 
 
@@ -55,9 +154,23 @@ const styles = theme => ({
              searchNameEvent: '',
              searchStartPoint: '',
              searchTypeOfSport: '',
-             events: []
+             events: [],
+             activeStep: 0
          }
      }
+
+
+     handleNext = () => {
+         this.setState(prevState => ({
+             activeStep: prevState.activeStep + 1,
+         }));
+     };
+
+     handleBack = () => {
+         this.setState(prevState => ({
+             activeStep: prevState.activeStep - 1,
+         }));
+     };
 
     componentDidMount(){
         fetch('/events/getAllEvents')
@@ -72,17 +185,24 @@ const styles = theme => ({
          this.setState({searchStartPoint: event.target.value.substr(0,20)})
      }
      updateSearchTypeOfSport(event) {
-         this.setState({searchTypeOfSport: event.target.value.substr(0,20)})
+         this.setState({searchTypeOfSport: event})
      }
 
 
      onSubmit (eventId) {
-         localStorage.setItem('userEvent', eventId)
-         this.props.history.push(`/addComment`)
+         if(localStorage.getItem('usertoken'))
+         {
+             localStorage.setItem('userEvent', eventId)
+             this.props.history.push(`/addComment`)
+         }
+         else
+         {
+             alert("U must be log in")
+         }
      }
 
     render(){
-        const { classes } = this.props;
+        const { classes, theme } = this.props;
          let filteredEvents = this.state.events.filter(
                 (event) => {
                      if(event.name_event.toLowerCase().indexOf(this.state.searchNameEvent.toLowerCase()) !== -1 && event.start_point.toLowerCase().indexOf(this.state.searchStartPoint.toLowerCase()) !== -1 && event.type_sport.toLowerCase().indexOf(this.state.searchTypeOfSport.toLowerCase()) !== -1)
@@ -92,20 +212,20 @@ const styles = theme => ({
                     return 0;
                 }
             )
+        const { activeStep } = this.state;
+        const maxSteps = tutorialSteps.length;
          return (
 
 <div>
-                     <Grid container direction="column" justify="center" alignItems="center" spacing={0}>
+
+    <Grid container direction="column" justify="space-around" alignItems="center" spacing={32}>
                          <Grid item>
-                             <h1>Events</h1>
+                             <Typography variant="h4" component="h4">Events</Typography>
                          </Grid>
-                <Grid item>
-              <Card className={classes.card}>
-             <Grid container direction="column" justify="center" alignItems="center" spacing={4}>
-                     </Grid>
-             <Grid container direction="row-reverse" justify="space-around" alignItems="center" spacing={8}>
                <Grid item>
-                <TextField
+                   <Grid container direction="row" justify="space-around" alignItems="center" spacing={8}>
+                   <Grid item>
+                       <TextField
                     name="Search name event"
                        placeholder="Search by name event"
                            variant={"outlined"}
@@ -122,14 +242,46 @@ const styles = theme => ({
                        value={this.state.searchStartPoint}
                        onChange={this.updateSearchStartPoint.bind(this)} />
                  </Grid>
+               </Grid>
+               </Grid>
                  <Grid item>
-                <TextField
-                    name="Search type of sport"
-                       placeholder="Search by type of sports"
-                       type="text"
-                           variant={"outlined"}
-                       value={this.state.searchTypeOfSport}
-                       onChange={this.updateSearchTypeOfSport.bind(this)} />
+                 <div className={classes.root}>
+                     <Paper square elevation={0} className={classes.header}>
+                         <Grid container direction="row" justify="space-between" alignItems="center" spacing={40}>
+                         <Grid item>
+                             <Typography>{tutorialSteps[activeStep].label}</Typography>
+                         </Grid>
+                             <Grid item>
+                             <Button color="primary" size="small" onClick={()=> this.updateSearchTypeOfSport(tutorialSteps[activeStep].label)}>
+                             Search
+                             </Button>
+                             </Grid>
+                         </Grid>
+                     </Paper>
+                     <img
+                         className={classes.img}
+                         src={tutorialSteps[activeStep].imgPath}
+                         alt={tutorialSteps[activeStep].label}
+                     />
+                     <MobileStepper
+                         steps={maxSteps}
+                         position="static"
+                         activeStep={activeStep}
+                         className={classes.mobileStepper}
+                         nextButton={
+                             <Button size="small" onClick={this.handleNext} disabled={activeStep === maxSteps - 1}>
+                                 Next
+                                 {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
+                             </Button>
+                         }
+                         backButton={
+                             <Button size="small" onClick={this.handleBack} disabled={activeStep === 0}>
+                                 {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
+                                 Back
+                             </Button>
+                         }
+                     />
+                 </div>
                  </Grid>
              </Grid>
               </Card>
@@ -181,4 +333,8 @@ const styles = theme => ({
 
 
 }
-export default withStyles(styles)(AllEvents);
+AllEvents.propTypes = {
+    classes: PropTypes.object.isRequired,
+    theme: PropTypes.object.isRequired,
+};
+export default withStyles(styles, { withTheme: true })(AllEvents);

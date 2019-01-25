@@ -60,6 +60,8 @@ class Navbar extends Component {
             <AppBar position="static" className="AppBarContainer">
                 <Grid container direction="row" justify="space-between" alignItems="center" spacing={0}>
                     <Grid item >
+                <Grid container direction="row" justify="space-between" alignItems="center" spacing={0}>
+                    <Grid item >
                         <Link to="/allEvents" >
                             <HomeIcon color="action" className="itemNav" />
                         </Link>
@@ -72,12 +74,6 @@ class Navbar extends Component {
                     </Grid>
                     <Grid item >
                             <Button color="default"
-                                    onClick={this.logOut.bind(this)}>
-                                    Logout
-                                    </Button>
-                    </Grid>
-                    <Grid item >
-                            <Button color="default"
                                     onClick={this.handlePageChangeToCreateEvent}>
                                 Create event
                             </Button>
@@ -87,6 +83,14 @@ class Navbar extends Component {
                                     onClick={this.handlePageChangeToYourEvents}>
                                 Your Events
                             </Button>
+                    </Grid>
+                </Grid>
+                    </Grid>
+                    <Grid item >
+                        <Button color="default"
+                                onClick={this.logOut.bind(this)}>
+                            Logout
+                        </Button>
                     </Grid>
                 </Grid>
             </AppBar>)
