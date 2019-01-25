@@ -23,7 +23,6 @@ import DateFnsUtils from '@date-io/date-fns';
 import { MuiPickersUtilsProvider, TimePicker, DatePicker } from 'material-ui-pickers';
 import Typography from "@material-ui/core/Typography/Typography";
 
-
 window.__MUI_USE_NEXT_TYPOGRAPHY_VARIANTS__ = true;
 const styles = theme => ({
     root: {
@@ -135,6 +134,7 @@ const typeOfSports = [
     {
         value: 'Skate',
     },
+
 ];
 
 class CreateEvent extends Component {
@@ -159,12 +159,13 @@ class CreateEvent extends Component {
         this.onSubmit = this.onSubmit.bind(this)
     }
 
-    onChange (e) {
-        this.setState({ [e.target.name]: e.target.value })
+    onChange(e) {
+        this.setState({[e.target.name]: e.target.value})
     }
 
     handleDateChange = date => {
         this.setState({ date: date });
+
     };
 
     handleChange = name => event => {
@@ -173,6 +174,7 @@ class CreateEvent extends Component {
         });
     };
     handleClickOpen = () => {
+
         this.setState({ open: true });
     };
 
@@ -202,8 +204,10 @@ class CreateEvent extends Component {
             this.props.history.push(`/`)
         })
     }
-    render () {
-        const { classes } = this.props;
+
+    render() {
+        const {classes} = this.props;
+        const {selectedDate} = this.state;
         return (
             <form className={classes.container} noValidate autoComplete="off" onSubmit={this.onSubmit}>
                 <Grid container direction="column" justify="center" alignItems="center" spacing={8}>
@@ -408,6 +412,10 @@ class CreateEvent extends Component {
         )
     }
 }
+CreateEvent.propTypes = {
+    classes: PropTypes.object.isRequired,
+};
+
 CreateEvent.propTypes = {
     classes: PropTypes.object.isRequired,
 };

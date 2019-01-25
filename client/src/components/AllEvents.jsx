@@ -217,6 +217,7 @@ const styles = theme => ({
          return (
 
 <div>
+
     <Grid container direction="column" justify="space-around" alignItems="center" spacing={32}>
                          <Grid item>
                              <Typography variant="h4" component="h4">Events</Typography>
@@ -283,6 +284,9 @@ const styles = theme => ({
                  </div>
                  </Grid>
              </Grid>
+              </Card>
+                </Grid>
+                     </Grid>
                 <ul>
                     {filteredEvents.map(event =>
                         <li key={event.id_event}>
