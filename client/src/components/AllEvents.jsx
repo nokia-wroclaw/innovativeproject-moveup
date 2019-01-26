@@ -284,9 +284,7 @@ const styles = theme => ({
                  </div>
                  </Grid>
              </Grid>
-              </Card>
-                </Grid>
-                     </Grid>
+                
                 <ul>
                     {filteredEvents.map(event =>
                         <li key={event.id_event}>
