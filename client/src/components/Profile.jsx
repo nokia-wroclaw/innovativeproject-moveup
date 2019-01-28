@@ -12,7 +12,6 @@ import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import {withStyles} from "@material-ui/core";
-import CardActionArea from '@material-ui/core/CardActionArea';
 import CardMedia from '@material-ui/core/CardMedia';
 
 const genders = [
@@ -115,9 +114,8 @@ class Profile extends Component {
             number_phone: this.state.number_phone
         }
 
-
         getEditProfile(user).then(res => {
-            this.props.history.push(`/profile`)
+            window.location.reload();
         })
     }
 
@@ -276,7 +274,7 @@ class Profile extends Component {
                                 </CardContent>
                             <CardActions>
                                 <Button type="submit"  color="primary" >
-                                    Edit our profile
+                                    Edit your profile
                                 </Button>
                             </CardActions>
                         </Card>

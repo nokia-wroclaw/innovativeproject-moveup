@@ -11,7 +11,7 @@ export const register = newUser => {
             sex: newUser.sex,
             number_phone: newUser.number_phone
         }).then(res => {
-            console.log("Registered")
+            return res.data;
         }).catch(err => {
             console.log("error  " + err)
         })

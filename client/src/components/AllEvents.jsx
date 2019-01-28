@@ -17,7 +17,7 @@ import Paper from '@material-ui/core/Paper';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import PropTypes from 'prop-types';
-
+import {addComment} from "./CommentFunctions";
 
 
 
@@ -155,11 +155,17 @@ const styles = theme => ({
              searchStartPoint: '',
              searchTypeOfSport: '',
              events: [],
-             activeStep: 0
+             activeStep: 0,
+             id_user: '',
+             text: [],
          }
+         this.onChange = this.onChange.bind(this);
+         this.onSubmit  = this.onSubmit.bind(this);
      }
 
-
+     onChange(e) {
+         this.setState({[e.target.name]: e.target.value})
+     }
      handleNext = () => {
          this.setState(prevState => ({
              activeStep: prevState.activeStep + 1,
@@ -190,15 +196,14 @@ const styles = theme => ({
 
 
      onSubmit (eventId) {
-         if(localStorage.getItem('usertoken'))
-         {
-             localStorage.setItem('userEvent', eventId)
-             this.props.history.push(`/addComment`)
-         }
-         else
-         {
-             alert("U must be log in")
-         }
+             const comment = {
+                 id_user: this.state.id_user,
+                 id_event: eventId,
+                 text: this.state.text,
+             };
+             addComment(comment).then(res => {
+                 this.props.history.push(`/allEvents`)
+             })
      }
 
     render(){
@@ -312,12 +317,25 @@ const styles = theme => ({
                                 </Typography>
                             </CardContent>
                             <CardActions>
+                            </CardActions>
+                        <ViewCommentsInAllEvents eventId={event.id_event}/>
                             <Button color="primary"
+                                    disabled={!localStorage.getItem('usertoken')}
                                     onClick={() => {this.onSubmit(event.id_event)}}>
                                 Comment
                             </Button>
-                            </CardActions>
-                        <ViewCommentsInAllEvents eventId={event.id_event}/>
+                            <div className="form-group">
+                                <TextField type="text"
+                                           variant="outlined"
+                                           className="textField3"
+                                           name="text"
+                                           placeholder="Enter  your comment"
+                                           value={this.state.text[event.id_event]}
+                                           onChange={this.onChange}
+                                           label="comment"
+                                           margin="normal"
+                                />
+                            </div>
                         </Card>
                                 </Grid>
                             </Grid>

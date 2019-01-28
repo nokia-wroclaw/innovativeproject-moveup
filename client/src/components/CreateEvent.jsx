@@ -50,6 +50,10 @@ const styles = theme => ({
 });
 const ranges = [
     {
+        value: 'N/A',
+        label: 'N/A',
+    },
+    {
         value: '9-14',
         label: '9 to 14',
     },
@@ -73,21 +77,36 @@ const ranges = [
         value: '16+',
         label: '16+',
     },
-    {
-        value: 'None',
-        label: 'None',
-    },
+
 ];
 
 const genders = [
+    {
+        value: 'N/A',
+    },
     {
         value: 'male',
     },
     {
         value: 'female',
     },
+];
+
+const advancement = [
     {
-        value: 'meaningless',
+        value: 'N/A',
+    },
+    {
+        value: 'beginner',
+    },
+    {
+        value: 'intermedied',
+    },
+    {
+        value: 'advanced',
+    },
+    {
+        value: 'master',
     },
 ];
 
@@ -141,17 +160,17 @@ class CreateEvent extends Component {
     constructor() {
         super()
         this.state = {
-            gender: 'meaningless',
+            gender: 'N/A',
             date: new Date(),
             id_user: '',
             name_event: '',
             start_point: '',
             type_sport: 'Football',
             time: '',
-            pref_age: 'None',
-            advanced: '',
-            repetitionDay: '',
-            repetition: '',
+            pref_age: 'N/A',
+            advanced: 'N/A',
+            repetitionDay: 'N/A',
+            repetition: 'N/A',
             phone_organizer: '',
             open: false,
         }
@@ -199,7 +218,6 @@ class CreateEvent extends Component {
             repetition: this.state.repetitionDay + ' ' +this.state.repetition,
             phone_organizer: this.state.phone_organizer
         }
-        console.log(event);
         registerEvent(event).then(res => {
             this.props.history.push(`/`)
         })
@@ -207,7 +225,6 @@ class CreateEvent extends Component {
 
     render() {
         const {classes} = this.props;
-        const {selectedDate} = this.state;
         return (
             <form className={classes.container} noValidate autoComplete="off" onSubmit={this.onSubmit}>
                 <Grid container direction="column" justify="center" alignItems="center" spacing={8}>
@@ -322,14 +339,22 @@ class CreateEvent extends Component {
                         </TextField>
                     </Grid>
                     <Grid item>
-                        <TextField type="text"
-                                   name="advanced"
-                                   placeholder="Enter advanced if u must"
-                                   value={this.state.advanced}
-                                   onChange={this.onChange}
-                                   label="ADVANCED"
-                                   margin="normal"
-                        />
+                        <TextField
+                            select
+                            label="preff advanced"
+                            value={this.state.advanced}
+                            onChange={this.handleChange('advanced')}
+                            SelectProps={{
+                                native: true,
+                            }}
+                            margin="normal"
+                        >
+                            {advancement.map(option => (
+                                <option key={option.value} value={option.value}>
+                                    {option.value}
+                                </option>
+                            ))}
+                        </TextField>
                     </Grid>
                 </Grid>
                 </Grid>
