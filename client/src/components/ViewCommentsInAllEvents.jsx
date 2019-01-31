@@ -3,7 +3,6 @@ import {getCommentsWithVerification} from "./CommentFunctions";
 import {withStyles} from "@material-ui/core";
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
-
 const styles = theme => ({
     container: {
         display: 'flex',
@@ -28,12 +27,12 @@ const styles = theme => ({
     constructor(props) {
         super(props);
         this.state = {
-            comments: []
+            comments: [],
         }
     }
     componentDidMount()
     {
-        const com = this.props.eventId
+        const com = this.props.eventId;
         getCommentsWithVerification(com)
             .then(comments => this.setState({comments: comments}))
     }
@@ -48,7 +47,7 @@ const styles = theme => ({
                             <li key={comment.id_comment}>
                                 <Paper className={classes.root} elevation={1}>
                                     <Typography variant="h6" component="h3">
-                                        Comment
+                                        {comment.id_user}
                                     </Typography>
                                     <Typography component="p">
                                         {comment.text}

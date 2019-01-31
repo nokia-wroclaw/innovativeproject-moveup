@@ -18,7 +18,8 @@ import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import PropTypes from 'prop-types';
 import {addComment} from "./CommentFunctions";
-
+import {getDataProfile} from "./UserFunctions"
+import jwt_decode from "jwt-decode";
 
 
 const tutorialSteps = [
@@ -156,7 +157,7 @@ const styles = theme => ({
              searchTypeOfSport: '',
              events: [],
              activeStep: 0,
-             id_user: '',
+             email: '',
              text: [],
          }
          this.onChange = this.onChange.bind(this);
@@ -182,6 +183,8 @@ const styles = theme => ({
         fetch('/events/getAllEvents')
             .then(res => res.json())
             .then(events => this.setState({events}));
+
+        this.getEmail();
     }
 
      updateSearchNameEvent(event) {
@@ -194,10 +197,19 @@ const styles = theme => ({
          this.setState({searchTypeOfSport: event})
      }
 
+    getEmail() {
+        const token = localStorage.usertoken;
+        const decoded = jwt_decode(token);
+        getDataProfile(decoded).then(res => {
+            this.setState({
+                email: res.email,
+            })
+        })
+    }
 
      onSubmit (eventId) {
              const comment = {
-                 id_user: this.state.id_user,
+                 id_user: this.state.email,
                  id_event: eventId,
                  text: this.state.text,
              };
@@ -312,13 +324,17 @@ const styles = theme => ({
                                 </Typography>
                                 <Typography component="p">
                                     Start point: {event.start_point} <br/>
+                                    Start time: {event.time} <br />
                                     Advanced: {event.advanced} <br/>
-                                    Repetition: {event.repetition}
+                                    Repetition: {event.repetition} <br/>
+                                    Preff gender: {event.pref_sex} <br/>
+                                    Preff advanced: {event.advanced} <br/>
+                                    Number to organizer: {event.phone_organizer} <br/>
                                 </Typography>
                             </CardContent>
                             <CardActions>
                             </CardActions>
-                        <ViewCommentsInAllEvents eventId={event.id_event}/>
+                        <ViewCommentsInAllEvents eventId={event.id_event} userId={event.id_user}/>
                             <Button color="primary"
                                     disabled={!localStorage.getItem('usertoken')}
                                     onClick={() => {this.onSubmit(event.id_event)}}>

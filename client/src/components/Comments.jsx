@@ -59,7 +59,7 @@ class Comments extends Component {
                                     <Grid container direction="row" justify="center" alignItems="center" spacing={0}>
                                         <Paper className={classes.root} elevation={1}>
                                             <Typography variant="h6" component="h3">
-                                                {comment.id_event}
+                                                {comment.id_user}
                                             </Typography>
                                             <Typography component="p">
                                                 {comment.text}

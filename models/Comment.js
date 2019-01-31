@@ -10,7 +10,7 @@ Comment = db.sequelize.define(
             autoIncrement: true
         },
         id_user: {
-            type: Sequelize.INTEGER,
+            type: Sequelize.STRING,
             foreignKey: true,
         },
         id_event: {

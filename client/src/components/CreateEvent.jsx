@@ -22,6 +22,7 @@ import PropTypes from 'prop-types';
 import DateFnsUtils from '@date-io/date-fns';
 import { MuiPickersUtilsProvider, TimePicker, DatePicker } from 'material-ui-pickers';
 import Typography from "@material-ui/core/Typography/Typography";
+import MaskedInput from 'react-text-mask';
 
 window.__MUI_USE_NEXT_TYPOGRAPHY_VARIANTS__ = true;
 const styles = theme => ({
@@ -156,10 +157,31 @@ const typeOfSports = [
 
 ];
 
+function TextMaskCustom(props) {
+    const { inputRef, ...other } = props;
+
+    return (
+        <MaskedInput
+            {...other}
+            ref={ref => {
+                inputRef(ref ? ref.inputElement : null);
+            }}
+            mask={['+','(', /[1-9]/,/[0-9]/,')', ' ', /[0-9]/,/[0-9]/,/[0-9]/, ' ', /[0-9]/,/[0-9]/,/[0-9]/, ' ',/[0-9]/,/[0-9]/,/[0-9]/,]}
+            placeholderChar={'\u2000'}
+            showMask
+        />
+    );
+}
+
+TextMaskCustom.propTypes = {
+    inputRef: PropTypes.func.isRequired,
+};
+
 class CreateEvent extends Component {
     constructor() {
         super()
         this.state = {
+            textmask: '(48)    -    ',
             gender: 'N/A',
             date: new Date(),
             id_user: '',
@@ -171,7 +193,6 @@ class CreateEvent extends Component {
             advanced: 'N/A',
             repetitionDay: 'N/A',
             repetition: 'N/A',
-            phone_organizer: '',
             open: false,
         }
         this.onChange = this.onChange.bind(this)
@@ -216,7 +237,7 @@ class CreateEvent extends Component {
             pref_sex:this.state.gender ,
             advanced: this.state.advanced,
             repetition: this.state.repetitionDay + ' ' +this.state.repetition,
-            phone_organizer: this.state.phone_organizer
+            phone_organizer: this.state.textmask
         }
         registerEvent(event).then(res => {
             this.props.history.push(`/`)
@@ -225,6 +246,7 @@ class CreateEvent extends Component {
 
     render() {
         const {classes} = this.props;
+        const { textmask } = this.state;
         return (
             <form className={classes.container} noValidate autoComplete="off" onSubmit={this.onSubmit}>
                 <Grid container direction="column" justify="center" alignItems="center" spacing={8}>
@@ -414,14 +436,14 @@ class CreateEvent extends Component {
                         </div>
                     </Grid>
                     <Grid item>
-                        <TextField type="number_phone"
-                                   name="phone_organizer"
-                                   placeholder="Enter  number phone to organizer if u have"
-                                   value={this.state.phone_organizer}
-                                   onChange={this.onChange}
-                                   label="NUMBER PHONE TO ORGANIZER"
-                                   margin="normal"
-                        />
+                        <FormControl className={"formControl"}>
+                            <InputLabel htmlFor="formatted-text-mask-input">Number to organizer</InputLabel>
+                            <Input
+                                value={textmask}
+                                onChange={this.handleChange('textmask')}
+                                inputComponent={TextMaskCustom}
+                            />
+                        </FormControl>
                     </Grid>
                 </Grid>
                 </Grid>
