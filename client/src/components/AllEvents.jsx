@@ -335,23 +335,28 @@ const styles = theme => ({
                             <CardActions>
                             </CardActions>
                         <ViewCommentsInAllEvents eventId={event.id_event} userId={event.id_user}/>
-                            <Button color="primary"
-                                    disabled={!localStorage.getItem('usertoken')}
-                                    onClick={() => {this.onSubmit(event.id_event)}}>
-                                Comment
-                            </Button>
-                            <div className="form-group">
+
+                            <Grid container direction="column" justify="space-evenly" alignItems="stretch" >
+                            <Grid item>
                                 <TextField type="text"
                                            variant="outlined"
-                                           className="textField3"
                                            name="text"
                                            placeholder="Enter  your comment"
                                            value={this.state.text[event.id_event]}
                                            onChange={this.onChange}
                                            label="comment"
-                                           margin="normal"
-                                />
-                            </div>
+                                            fullWidth={true}
+                               />
+                            </Grid>
+                                <Grid item>
+                                    <Button color="primary"
+                                            disabled={!localStorage.getItem('usertoken')}
+                                            onClick={() => {this.onSubmit(event.id_event)}}>
+                                        Comment
+                                    </Button>
+                                </Grid>
+
+                            </Grid>
                         </Card>
                                 </Grid>
                             </Grid>

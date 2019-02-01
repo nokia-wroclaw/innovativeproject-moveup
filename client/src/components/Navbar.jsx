@@ -67,19 +67,19 @@ class Navbar extends Component {
                         </Link>
                     </Grid>
                     <Grid item >
-                           <Button color="default"
+                           <Button color="primary" variant="contained"
                                    onClick={this.handlePageChangeToProfile}>
                                User
                            </Button>
                     </Grid>
                     <Grid item >
-                            <Button color="default"
+                            <Button color="primary" variant="contained"
                                     onClick={this.handlePageChangeToCreateEvent}>
                                 Create event
                             </Button>
                     </Grid>
                     <Grid item >
-                            <Button color="default"
+                            <Button color="primary" variant="contained"
                                     onClick={this.handlePageChangeToYourEvents}>
                                 Your Events
                             </Button>
@@ -87,7 +87,7 @@ class Navbar extends Component {
                 </Grid>
                     </Grid>
                     <Grid item >
-                        <Button color="default"
+                        <Button color="primary" variant="contained"
                                 onClick={this.logOut.bind(this)}>
                             Logout
                         </Button>
@@ -104,13 +104,13 @@ class Navbar extends Component {
                                 </Link>
                             </Grid>
                             <Grid item >
-                                <Button color="default"
+                                <Button color="primary" variant="contained"
                                         onClick={this.handlePageChangeToLogin}>
                                     Login
                                 </Button>
                             </Grid>
                             <Grid item >
-                                <Button color="default"
+                                <Button color="primary" variant="contained"
                                         onClick={this.handlePageChangeToRegister}>
                                     Register
                                 </Button>

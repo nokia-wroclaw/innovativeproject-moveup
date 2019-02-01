@@ -320,7 +320,7 @@ class CreateEvent extends Component {
                     </Grid>
                     <Grid item>
                         <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                            <Grid container direction="row" justify="enter" alignItems="center" spacing={24}>
+                            <Grid container direction="row" justify="center" alignItems="center" spacing={24}>
                                <Grid item>
                                 <DatePicker
                                     margin="normal"
